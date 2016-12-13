@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/msrose/scramble-generator.git"
   },
-  "keywords": [],
+  "keywords": ["rubik's", "cube", "scramble"],
   "author": "Michael Rose <michael_rose@outlook.com>",
   "license": "MIT",
   "bugs": {
@@ -22,5 +22,11 @@
     "eslint": "^3.12.1",
     "eslint-config-msrose": "^0.1.0",
     "jest": "^17.0.3"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      ".eslintrc"
+    ]
   }
 }
