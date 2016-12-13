@@ -1,0 +1,26 @@
+{
+  "name": "scramble-generator",
+  "version": "0.0.1",
+  "description": "Generates scrambles for Rubik's cubes",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msrose/scramble-generator.git"
+  },
+  "keywords": [],
+  "author": "Michael Rose <michael_rose@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/msrose/scramble-generator/issues"
+  },
+  "homepage": "https://github.com/msrose/scramble-generator#readme",
+  "devDependencies": {
+    "eslint": "^3.12.1",
+    "eslint-config-msrose": "^0.1.0",
+    "jest": "^17.0.3"
+  }
+}
