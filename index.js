@@ -38,7 +38,7 @@ const generate = (puzzle) => {
 const format = (scramble) => {
   if(!Array.isArray(scramble)) return '';
   return scramble.map(move =>
-    !Faces[move.face] ? '' : `${move.face}${move.inverted ? "'" : ''}`
+    !Faces[move.face] ? '' : `${Faces[move.face[0]]}${move.inverted ? "'" : ''}`
   ).join(' ');
 };
 

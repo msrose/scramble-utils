@@ -40,5 +40,10 @@ describe('Scramble generator', () => {
       { face: sg.Faces.B, inverted: true },
       { face: sg.Faces.D }
     ])).toBe("R' U F L B' D");
+    expect(sg.format([
+      { face: sg.Faces.RIGHT, inverted: true },
+      { face: sg.Faces.UP },
+      { face: sg.Faces.FRONT }
+    ])).toBe("R' U F");
   });
 });
