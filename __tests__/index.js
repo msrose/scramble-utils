@@ -9,7 +9,7 @@ describe('Scramble generator', () => {
       R, U, L, D, F, B,
       RIGHT, UP, LEFT, DOWN, FRONT, BACK
     } = sg.Faces;
-    expect([R, U, L, D, F, B]).toEqual(faceList);
+    expect([R, U, L, D, F, B]).toEqual(shortFaceList);
     expect([RIGHT, UP, LEFT, DOWN, FRONT, BACK]).toEqual(faceList);
   });
 
@@ -28,5 +28,17 @@ describe('Scramble generator', () => {
 
   it('generates different 3x3x3 scrambles', () => {
     expect(sg.formatted('3x3x3')).not.toBe(sg.formatted('3x3x3'));
+  });
+
+  it('formats a given scramble for 3x3x3', () => {
+    expect(sg.format([{ face: sg.Faces.R, inverted: true }])).toBe("R'");
+    expect(sg.format([
+      { face: sg.Faces.R, inverted: true },
+      { face: sg.Faces.U },
+      { face: sg.Faces.F },
+      { face: sg.Faces.L },
+      { face: sg.Faces.B, inverted: true },
+      { face: sg.Faces.D }
+    ])).toBe("R' U F L B' D");
   });
 });

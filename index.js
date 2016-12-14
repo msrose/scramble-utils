@@ -7,11 +7,10 @@ const Faces = {
   BACK: 'BACK'
 };
 
-const faceArray = Object.keys(Faces);
+const longFaceArray = Object.keys(Faces);
+const shortFaceArray = longFaceArray.map(f => f[0]);
 
-for(const face in Faces) {
-  Faces[face[0]] = Faces[face];
-}
+shortFaceArray.forEach((f) => Faces[f] = f);
 
 const randomInRange = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
@@ -21,11 +20,11 @@ const generators = {
   '3x3x3'() {
     const scramble = [];
     for(let i = 0; i < 20; i++) {
-      const face = faceArray[randomInRange(0, faceArray.length)];
+      const rand = randomInRange(0, longFaceArray.length);
       scramble.push({
         inverted: randomInRange(0, 2) === 0,
-        face: face[0],
-        longFace: face
+        face: shortFaceArray[rand],
+        longFace: longFaceArray[rand]
       });
     }
     return scramble;
@@ -36,14 +35,20 @@ const generate = (puzzle) => {
   return generators[puzzle]();
 };
 
-const formatted = (puzzle) => {
-  return generate(puzzle).map(move =>
-    `${move.face}${move.inverted ? "'" : ''}`
+const format = (scramble) => {
+  if(!Array.isArray(scramble)) return '';
+  return scramble.map(move =>
+    !Faces[move.face] ? '' : `${move.face}${move.inverted ? "'" : ''}`
   ).join(' ');
+};
+
+const formatted = (puzzle) => {
+  return format(generate(puzzle));
 };
 
 module.exports = {
   Faces,
   generate,
-  formatted
+  formatted,
+  format
 };
