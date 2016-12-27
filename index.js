@@ -15,13 +15,6 @@ const FaceAxisInfo = {
 
 const LONG_FACES = Object.keys(FaceAxisInfo);
 
-const Faces = LONG_FACES.reduce((faceMap, faceName) => {
-  faceMap[faceName] = faceName;
-  const shortName = faceName[0];
-  faceMap[shortName] = shortName;
-  return faceMap;
-}, {});
-
 const randomInRange = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
@@ -50,11 +43,18 @@ const generators = {
   }
 };
 
-const generate = (puzzle) => {
+export const Faces = LONG_FACES.reduce((faceMap, faceName) => {
+  faceMap[faceName] = faceName;
+  const shortName = faceName[0];
+  faceMap[shortName] = shortName;
+  return faceMap;
+}, {});
+
+export const generate = (puzzle) => {
   return generators[puzzle]();
 };
 
-const format = (scramble) => {
+export const format = (scramble) => {
   if(!Array.isArray(scramble)) return '';
   return scramble
     .filter(move => Faces[move.face])
@@ -69,13 +69,6 @@ const format = (scramble) => {
     }).join(' ');
 };
 
-const formatted = (puzzle) => {
+export const formatted = (puzzle) => {
   return format(generate(puzzle));
-};
-
-module.exports = {
-  Faces,
-  generate,
-  formatted,
-  format
 };

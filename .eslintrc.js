@@ -4,7 +4,8 @@ module.exports = {
     es6: true
   },
   parserOptions: {
-    ecmaVersion: 6
+    ecmaVersion: 6,
+    sourceType: 'module'
   },
   extends: 'msrose'
 };

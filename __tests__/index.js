@@ -1,4 +1,4 @@
-const sg = require('../index');
+import { Faces, generate, format, formatted } from '../index';
 
 describe('Scramble generator', () => {
   const faceList = ['RIGHT', 'UP', 'LEFT', 'DOWN', 'FRONT', 'BACK'];
@@ -8,13 +8,13 @@ describe('Scramble generator', () => {
     const {
       R, U, L, D, F, B,
       RIGHT, UP, LEFT, DOWN, FRONT, BACK
-    } = sg.Faces;
+    } = Faces;
     expect([R, U, L, D, F, B]).toEqual(shortFaceList);
     expect([RIGHT, UP, LEFT, DOWN, FRONT, BACK]).toEqual(faceList);
   });
 
   it('generates a scramble for 3x3x3', () => {
-    const scramble = sg.generate('3x3x3');
+    const scramble = generate('3x3x3');
     expect(scramble.length).toBe(20);
     scramble.forEach((move) => {
       expect(typeof move.inverted).toBe('boolean');
@@ -24,32 +24,32 @@ describe('Scramble generator', () => {
   });
 
   it('generates a formatted scramble for 3x3x3', () => {
-    expect(sg.formatted('3x3x3').replace(/[2' ]/g, '')).toMatch(/[RULDFB]{20}/);
+    expect(formatted('3x3x3').replace(/[2' ]/g, '')).toMatch(/[RULDFB]{20}/);
   });
 
   it('generates different 3x3x3 scrambles', () => {
-    expect(sg.formatted('3x3x3')).not.toBe(sg.formatted('3x3x3'));
+    expect(formatted('3x3x3')).not.toBe(formatted('3x3x3'));
   });
 
   it('formats a given scramble for 3x3x3', () => {
-    expect(sg.format([{ face: sg.Faces.R, inverted: true }])).toBe("R'");
-    expect(sg.format([
-      { face: sg.Faces.R, inverted: true },
-      { face: sg.Faces.U, double: true },
-      { face: sg.Faces.F },
-      { face: sg.Faces.L },
-      { face: sg.Faces.B, inverted: true },
-      { face: sg.Faces.D }
+    expect(format([{ face: Faces.R, inverted: true }])).toBe("R'");
+    expect(format([
+      { face: Faces.R, inverted: true },
+      { face: Faces.U, double: true },
+      { face: Faces.F },
+      { face: Faces.L },
+      { face: Faces.B, inverted: true },
+      { face: Faces.D }
     ])).toBe("R' U2 F L B' D");
-    expect(sg.format([
-      { face: sg.Faces.RIGHT, inverted: true },
-      { face: sg.Faces.UP },
-      { face: sg.Faces.FRONT }
+    expect(format([
+      { face: Faces.RIGHT, inverted: true },
+      { face: Faces.UP },
+      { face: Faces.FRONT }
     ])).toBe("R' U F");
   });
 
   it("doesn't include invalid moves in a formatted scramble", () => {
-    expect(sg.format([{ face: 'Q' }])).toBe('');
-    expect(sg.format([{ face: 'Q' }, { face: sg.Faces.UP }])).toBe('U');
+    expect(format([{ face: 'Q' }])).toBe('');
+    expect(format([{ face: 'Q' }, { face: Faces.UP }])).toBe('U');
   });
 });
