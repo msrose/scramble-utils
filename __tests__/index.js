@@ -47,4 +47,9 @@ describe('Scramble generator', () => {
       { face: sg.Faces.FRONT }
     ])).toBe("R' U F");
   });
+
+  it("doesn't include invalid moves in a formatted scramble", () => {
+    expect(sg.format([{ face: 'Q' }])).toBe('');
+    expect(sg.format([{ face: 'Q' }, { face: sg.Faces.UP }])).toBe('U');
+  });
 });
