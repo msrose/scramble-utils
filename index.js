@@ -1,13 +1,10 @@
 /**
+ * @module
  * @author Michael Rose
  * @license https://github.com/msrose/scramble-generator/blob/master/LICENSE
  */
 
-const randomInRange = (min, max) => {
-  return Math.floor(Math.random() * (max - min) + min);
-};
-
-const coinFlip = () => !!randomInRange(0, 2);
+import { randomInRange, coinFlip } from './helpers';
 
 const Axes = {
   X: 'X',
@@ -37,9 +34,8 @@ const Modifiers = {
 };
 
 /**
+ * Map of constants representing names of cube faces. The keys are 'RIGHT', 'UP', 'LEFT', 'DOWN', 'BACK', and 'FRONT'.
  * @enum {string}
- * Map of constants representing names of cube faces.
- * The keys are 'RIGHT', 'UP', 'LEFT', 'DOWN', 'BACK', and 'FRONT'.
  * @example
  * import { Faces } from 'scramble-generator';
  * Faces.RIGHT; // 'RIGHT'
@@ -53,12 +49,16 @@ export const Faces = LONG_FACES.reduce((faceMap, faceName) => {
 }, {});
 
 /**
+ * A turn of the cube is represented throughout as a Move object, which has all the properties necessary to describe how a given turn must be executed.
  * @typedef {object} Move
- * An object representing a single turn of a cube
  * @property {string} face - The short name of the face to turn e.g. 'R'
  * @property {string} longFace - The long name of the face to turn e.g. 'RIGHT'
  * @property {boolean} inverted - Indicates if the turn is to be made clockwise (`false`) or counter-clockwise (`true`)
  * @property {boolean} double - Indicates if the turn is 180 degrees. If `true`, `inverted` will always be `false`.
+ */
+
+/**
+ * @private
  */
 const createMove = ({
   face = LONG_FACES[0],
@@ -76,6 +76,9 @@ const createMove = ({
   };
 };
 
+/**
+ * @private
+ */
 const generators = {
   '3'({ length = 20 }) {
     const scramble = [];
