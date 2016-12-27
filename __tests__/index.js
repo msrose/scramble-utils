@@ -13,8 +13,8 @@ describe('Scramble generator', () => {
     expect([RIGHT, UP, LEFT, DOWN, FRONT, BACK]).toEqual(faceList);
   });
 
-  it('generates a scramble for 3x3x3', () => {
-    const scramble = generate('3x3x3');
+  it('generates a scramble for 3x3x3 by default', () => {
+    const scramble = generate();
     expect(scramble.length).toBe(20);
     scramble.forEach((move) => {
       expect(typeof move.inverted).toBe('boolean');
@@ -23,12 +23,17 @@ describe('Scramble generator', () => {
     });
   });
 
+  it('generates a scramble of the specified length', () => {
+    const scramble = generate({ length: 14 });
+    expect(scramble.length).toBe(14);
+  });
+
   it('generates a formatted scramble for 3x3x3', () => {
-    expect(formatted('3x3x3').replace(/[2' ]/g, '')).toMatch(/[RULDFB]{20}/);
+    expect(formatted({ cubeSize: 3 }).replace(/[2' ]/g, '')).toMatch(/[RULDFB]{20}/);
   });
 
   it('generates different 3x3x3 scrambles', () => {
-    expect(formatted('3x3x3')).not.toBe(formatted('3x3x3'));
+    expect(formatted({ cubeSize: 3 })).not.toBe(formatted({ cubeSize: 3 }));
   });
 
   it('formats a given scramble for 3x3x3', () => {
