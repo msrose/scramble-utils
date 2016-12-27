@@ -16,13 +16,18 @@ const randomInRange = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
+const coinFlip = () => !!randomInRange(0, 2);
+
 const generators = {
   '3x3x3'() {
     const scramble = [];
     for(let i = 0; i < 20; i++) {
       const rand = randomInRange(0, longFaceArray.length);
+      const inverted = coinFlip();
+      const double = coinFlip();
       scramble.push({
-        inverted: randomInRange(0, 2) === 0,
+        inverted: !double && inverted,
+        double,
         face: shortFaceArray[rand],
         longFace: longFaceArray[rand]
       });
@@ -37,9 +42,15 @@ const generate = (puzzle) => {
 
 const format = (scramble) => {
   if(!Array.isArray(scramble)) return '';
-  return scramble.map(move =>
-    !Faces[move.face] ? '' : `${Faces[move.face[0]]}${move.inverted ? "'" : ''}`
-  ).join(' ');
+  return scramble.map(move => {
+    let modifier = '';
+    if(move.double) {
+      modifier = '2';
+    } else if(move.inverted) {
+      modifier = "'";
+    }
+    return !Faces[move.face] ? '' : `${Faces[move.face[0]]}${modifier}`;
+  }).join(' ');
 };
 
 const formatted = (puzzle) => {

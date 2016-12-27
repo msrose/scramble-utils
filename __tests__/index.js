@@ -18,12 +18,13 @@ describe('Scramble generator', () => {
     expect(scramble.length).toBe(20);
     scramble.forEach((move) => {
       expect(typeof move.inverted).toBe('boolean');
+      expect(typeof move.double).toBe('boolean');
       expect(shortFaceList).toContain(move.face);
     });
   });
 
   it('generates a formatted scramble for 3x3x3', () => {
-    expect(sg.formatted('3x3x3').replace(/[' ]/g, '')).toMatch(/[RULDFB]{20}/);
+    expect(sg.formatted('3x3x3').replace(/[2' ]/g, '')).toMatch(/[RULDFB]{20}/);
   });
 
   it('generates different 3x3x3 scrambles', () => {
@@ -34,12 +35,12 @@ describe('Scramble generator', () => {
     expect(sg.format([{ face: sg.Faces.R, inverted: true }])).toBe("R'");
     expect(sg.format([
       { face: sg.Faces.R, inverted: true },
-      { face: sg.Faces.U },
+      { face: sg.Faces.U, double: true },
       { face: sg.Faces.F },
       { face: sg.Faces.L },
       { face: sg.Faces.B, inverted: true },
       { face: sg.Faces.D }
-    ])).toBe("R' U F L B' D");
+    ])).toBe("R' U2 F L B' D");
     expect(sg.format([
       { face: sg.Faces.RIGHT, inverted: true },
       { face: sg.Faces.UP },
