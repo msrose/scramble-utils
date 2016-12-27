@@ -1,4 +1,4 @@
-import { Faces, generate, format, formatted } from '../index';
+import { Faces, generate, format, formatted, parse } from '../index';
 
 describe('Scramble generator', () => {
   const faceList = ['RIGHT', 'UP', 'LEFT', 'DOWN', 'FRONT', 'BACK'];
@@ -51,5 +51,38 @@ describe('Scramble generator', () => {
   it("doesn't include invalid moves in a formatted scramble", () => {
     expect(format([{ face: 'Q' }])).toBe('');
     expect(format([{ face: 'Q' }, { face: Faces.UP }])).toBe('U');
+  });
+
+  it('parses a scramble string into array format', () => {
+    expect(parse("R U2 R' U'")).toEqual([
+      jasmine.objectContaining({ face: 'R', inverted: false, double: false }),
+      jasmine.objectContaining({ face: 'U', inverted: false, double: true }),
+      jasmine.objectContaining({ face: 'R', inverted: true, double: false }),
+      jasmine.objectContaining({ face: 'U', inverted: true, double: false })
+    ]);
+    expect(parse('d   f b  l')).toEqual([
+      jasmine.objectContaining({ face: 'D', longFace: 'DOWN' }),
+      jasmine.objectContaining({ face: 'F', longFace: 'FRONT' }),
+      jasmine.objectContaining({ face: 'B', longFace: 'BACK' }),
+      jasmine.objectContaining({ face: 'L', longFace: 'LEFT' })
+    ]);
+    expect(parse('  ')).toEqual([]);
+  });
+
+  it('handles redundant modifiers when parsing', () => {
+    expect(parse("R2' L'2 F'' B'''")).toEqual([
+      jasmine.objectContaining({ face: 'R', inverted: false, double: true }),
+      jasmine.objectContaining({ face: 'L', inverted: false, double: true }),
+      jasmine.objectContaining({ face: 'F', inverted: false, double: false }),
+      jasmine.objectContaining({ face: 'B', inverted: true, double: false })
+    ]);
+  });
+
+  it('returns null for invalid sequences when parsing', () => {
+    expect(parse('llamas')).toBeNull();
+    expect(parse(function() {})).toBeNull();
+    expect(parse(null)).toBeNull();
+    expect(parse({})).toBeNull();
+    expect(parse('R22')).toBeNull();
   });
 });
