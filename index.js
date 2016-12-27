@@ -1,5 +1,5 @@
 /**
- * @module
+ * @module scramble-generator
  * @author Michael Rose
  * @license https://github.com/msrose/scramble-generator/blob/master/LICENSE
  */
@@ -34,6 +34,15 @@ const Modifiers = {
 };
 
 /**
+ * A turn of the cube is represented throughout as a Move object, which has all the properties necessary to describe how a given turn must be executed.
+ * @typedef {object} Move
+ * @property {string} face - The short name of the face to turn e.g. 'R'
+ * @property {string} longFace - The long name of the face to turn e.g. 'RIGHT'
+ * @property {boolean} inverted - Indicates if the turn is to be made clockwise (`false`) or counter-clockwise (`true`)
+ * @property {boolean} double - Indicates if the turn is 180 degrees. If `true`, `inverted` will always be `false`.
+ */
+
+/**
  * Map of constants representing names of cube faces. The keys are 'RIGHT', 'UP', 'LEFT', 'DOWN', 'BACK', and 'FRONT'.
  * @enum {string}
  * @example
@@ -48,23 +57,7 @@ export const Faces = LONG_FACES.reduce((faceMap, faceName) => {
   return faceMap;
 }, {});
 
-/**
- * A turn of the cube is represented throughout as a Move object, which has all the properties necessary to describe how a given turn must be executed.
- * @typedef {object} Move
- * @property {string} face - The short name of the face to turn e.g. 'R'
- * @property {string} longFace - The long name of the face to turn e.g. 'RIGHT'
- * @property {boolean} inverted - Indicates if the turn is to be made clockwise (`false`) or counter-clockwise (`true`)
- * @property {boolean} double - Indicates if the turn is 180 degrees. If `true`, `inverted` will always be `false`.
- */
-
-/**
- * @private
- */
-const createMove = ({
-  face = LONG_FACES[0],
-  inverted = false,
-  double = false
-}) => {
+const createMove = ({ face = LONG_FACES[0], inverted = false, double = false }) => {
   if(Faces[face]) {
     face = face[0];
   }
@@ -76,9 +69,6 @@ const createMove = ({
   };
 };
 
-/**
- * @private
- */
 const generators = {
   '3'({ length = 20 }) {
     const scramble = [];
