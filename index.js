@@ -1,16 +1,26 @@
-const Faces = {
-  RIGHT: 'RIGHT',
-  LEFT: 'LEFT',
-  UP: 'UP',
-  DOWN: 'DOWN',
-  FRONT: 'FRONT',
-  BACK: 'BACK'
+const Axes = {
+  X: 'X',
+  Y: 'Y',
+  Z: 'Z'
 };
 
-const longFaceArray = Object.keys(Faces);
-const shortFaceArray = longFaceArray.map(f => f[0]);
+const FaceAxisInfo = {
+  RIGHT: Axes.X,
+  LEFT: Axes.X,
+  UP: Axes.Y,
+  DOWN: Axes.Y,
+  FRONT: Axes.Z,
+  BACK: Axes.Z
+};
 
-shortFaceArray.forEach(f => Faces[f] = f);
+const LONG_FACES = Object.keys(FaceAxisInfo);
+
+const Faces = LONG_FACES.reduce((faceMap, faceName) => {
+  faceMap[faceName] = faceName;
+  const shortName = faceName[0];
+  faceMap[shortName] = shortName;
+  return faceMap;
+}, {});
 
 const randomInRange = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
@@ -21,15 +31,19 @@ const coinFlip = () => !!randomInRange(0, 2);
 const generators = {
   '3x3x3'() {
     const scramble = [];
+    let lastAxis;
     for(let i = 0; i < 20; i++) {
-      const rand = randomInRange(0, longFaceArray.length);
+      const faceSelections = LONG_FACES.filter(face => FaceAxisInfo[face] !== lastAxis);
+      const rand = randomInRange(0, faceSelections.length);
       const inverted = coinFlip();
       const double = coinFlip();
+      const longFace = faceSelections[rand];
+      lastAxis = FaceAxisInfo[longFace];
       scramble.push({
         inverted: !double && inverted,
         double,
-        face: shortFaceArray[rand],
-        longFace: longFaceArray[rand]
+        face: longFace[0],
+        longFace
       });
     }
     return scramble;
