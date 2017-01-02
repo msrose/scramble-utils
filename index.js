@@ -74,9 +74,9 @@ const createMove = ({ face = LONG_FACES[0], inverted = false, double = false, la
 
 /**
  * Generates a random scramble for the given cube size.
- * @param {object} [options]
- * @param {number} [options.cubeSize] - The size (number of layers) of the cube to generate a scramble for
- * @param {number} [options.length] - The number of moves in the generated scramble. Default value depends on cube size.
+ * @param {object} [$0]
+ * @param {number} [$0.cubeSize=3] - The size (number of layers) of the cube to generate a scramble for
+ * @param {number} [$0.length=(cubeSize-2)*20||8] - The number of moves in the generated scramble. Default value depends on cube size.
  * @returns {Move[]} - A list of moves representing the scramble for the cube.
  * @example
  * import { generate } from 'scramble-generator';
