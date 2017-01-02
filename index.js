@@ -30,7 +30,8 @@ const SHORT_TO_LONG_MAP = LONG_FACES.reduce((map, face) => {
 
 const Modifiers = {
   INVERTED: "'",
-  DOUBLE: '2'
+  DOUBLE: '2',
+  WIDE: 'w'
 };
 
 /**
@@ -127,7 +128,7 @@ export const format = (scramble) => {
     .map(({ double, inverted, layerCount, face }) => {
       let modifier = '';
       if(layerCount > 1) {
-        modifier += 'w';
+        modifier += Modifiers.WIDE;
       }
       if(double) {
         modifier += Modifiers.DOUBLE;
@@ -151,8 +152,48 @@ export const formatted = (options) => {
   return format(generate(options));
 };
 
+const ModifierMap = Object.keys(Modifiers).reduce((map, key) => {
+  const modifier = Modifiers[key];
+  map[modifier] = modifier;
+  return map;
+}, {});
+
+const tokenize = (scrambleString) => {
+  if(typeof scrambleString !== 'string') return null;
+  const tokens = [];
+  let i = 0;
+  while(i < scrambleString.length) {
+    const char = scrambleString[i];
+    if(/\s/.test(char)) {
+      i++;
+      continue;
+    }
+    const face = Faces[char.toUpperCase()];
+    if(face) {
+      tokens.push({
+        type: 'FACE',
+        face,
+        raw: char
+      });
+    } else {
+      const modifier = ModifierMap[char];
+      if(modifier) {
+        tokens.push({
+          type: 'MODIFIER',
+          modifier,
+          raw: char
+        });
+      } else {
+        return null;
+      }
+    }
+    i++;
+  }
+  return tokens;
+};
+
 /**
- * Takes a given string and parses it into as scramble of {@link Move} objects.
+ * Takes a given string and parses it into a scramble of {@link Move} objects.
  * @param {string} scrambleString - The string to be parse as a scramble.
  * @returns {Move[]|null} - An array of Move objects representing the given scramble, or null if the scramble isn't valid.
  * @example
@@ -166,29 +207,37 @@ export const formatted = (options) => {
  * parse("R J Q D2 F U'"); // null
  */
 export const parse = (scrambleString) => {
-  if(typeof scrambleString !== 'string') return null;
-  scrambleString = scrambleString.replace(/\s/g, '').toUpperCase();
+  const tokens = tokenize(scrambleString);
+  if(!tokens) return null;
   const moves = [];
-  for(let i = 0; i < scrambleString.length; i++) {
-    const token = scrambleString[i];
-    if(Faces[token]) {
-      moves.push(createMove({ face: token }));
-    } else {
-      const lastMove = moves[moves.length - 1];
-      if(!lastMove) {
-        return null;
+  for(let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+    switch(token.type) {
+      case 'FACE': {
+        moves.push(createMove({ face: token.face }));
+        break;
       }
-      if(token === Modifiers.INVERTED) {
-        if(!lastMove.double) {
-          lastMove.inverted = !lastMove.inverted;
-        }
-      } else if(token === Modifiers.DOUBLE) {
-        if(lastMove.double) {
+      case 'MODIFIER': {
+        const lastMove = moves[moves.length - 1];
+        if(!lastMove) {
           return null;
         }
-        lastMove.double = true;
-        lastMove.inverted = false;
-      } else {
+        if(token.modifier === Modifiers.INVERTED) {
+          if(!lastMove.double) {
+            lastMove.inverted = !lastMove.inverted;
+          }
+        } else if(token.modifier === Modifiers.DOUBLE) {
+          if(lastMove.double) {
+            return null;
+          }
+          lastMove.double = true;
+          lastMove.inverted = false;
+        } else {
+          return null;
+        }
+        break;
+      }
+      default: {
         return null;
       }
     }
