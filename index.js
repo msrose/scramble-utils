@@ -232,6 +232,11 @@ export const parse = (scrambleString) => {
           }
           lastMove.double = true;
           lastMove.inverted = false;
+        } else if(token.modifier === Modifiers.WIDE) {
+          if(lastMove.layerCount >= 2) {
+            return null;
+          }
+          lastMove.layerCount = 2;
         } else {
           return null;
         }

@@ -100,11 +100,21 @@ describe('Scramble generator', () => {
     ]);
   });
 
+  it('parses a scramble with wide modifiers', () => {
+    expect(parse("Rw2' L'w2 Fw B'w")).toEqual([
+      jasmine.objectContaining({ face: 'R', inverted: false, double: true, layerCount: 2 }),
+      jasmine.objectContaining({ face: 'L', inverted: false, double: true, layerCount: 2 }),
+      jasmine.objectContaining({ face: 'F', inverted: false, double: false, layerCount: 2 }),
+      jasmine.objectContaining({ face: 'B', inverted: true, double: false, layerCount: 2 })
+    ]);
+  });
+
   it('returns null for invalid sequences when parsing', () => {
     expect(parse('llamas')).toBeNull();
     expect(parse(function() {})).toBeNull();
     expect(parse(null)).toBeNull();
     expect(parse({})).toBeNull();
     expect(parse('R22')).toBeNull();
+    expect(parse('Rww')).toBeNull();
   });
 });
