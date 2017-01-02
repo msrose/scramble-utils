@@ -19,6 +19,7 @@ describe('Scramble generator', () => {
     scramble.forEach((move) => {
       expect(typeof move.inverted).toBe('boolean');
       expect(typeof move.double).toBe('boolean');
+      expect(typeof move.layerCount).toBe('number');
       expect(shortFaceList).toContain(move.face);
     });
   });
@@ -36,6 +37,14 @@ describe('Scramble generator', () => {
     expect(formatted({ cubeSize: 3 })).not.toBe(formatted({ cubeSize: 3 }));
   });
 
+  it('generates scrambles for other cubes', () => {
+    expect(generate({ cubeSize: 2 }).length).toBe(8);
+    expect(generate({ cubeSize: 4 }).length).toBe(40);
+    expect(generate({ cubeSize: 5 }).length).toBe(60);
+    expect(generate({ cubeSize: 6 }).length).toBe(80);
+    expect(generate({ cubeSize: 7 }).length).toBe(100);
+  });
+
   it('formats a given scramble for 3x3x3', () => {
     expect(format([{ face: Faces.R, inverted: true }])).toBe("R'");
     expect(format([
@@ -51,6 +60,14 @@ describe('Scramble generator', () => {
       { face: Faces.UP },
       { face: Faces.FRONT }
     ])).toBe("R' U F");
+  });
+
+  it('formats a scramble for other cubes', () => {
+    expect(format([
+      { face: Faces.R, inverted: true, layerCount: 2 },
+      { face: Faces.U, double: true, layerCount: 3 },
+      { face: Faces.F }
+    ])).toBe("Rw' 3Uw2 F");
   });
 
   it("doesn't include invalid moves in a formatted scramble", () => {

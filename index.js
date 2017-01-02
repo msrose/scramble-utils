@@ -40,6 +40,7 @@ const Modifiers = {
  * @property {string} longFace - The long name of the face to turn e.g. 'RIGHT'
  * @property {boolean} inverted - Indicates if the turn is to be made clockwise (`false`) or counter-clockwise (`true`)
  * @property {boolean} double - Indicates if the turn is 180 degrees. If `true`, `inverted` will always be `false`.
+ * @property {number} layerCount - Indicates how many layers should be turned. Will be at least `1` and at most `Math.floor(cubeSize / 2)`.
  */
 
 /**
@@ -57,7 +58,7 @@ export const Faces = LONG_FACES.reduce((faceMap, faceName) => {
   return faceMap;
 }, {});
 
-const createMove = ({ face = LONG_FACES[0], inverted = false, double = false }) => {
+const createMove = ({ face = LONG_FACES[0], inverted = false, double = false, layerCount = 1 }) => {
   if(Faces[face]) {
     face = face[0];
   }
@@ -65,33 +66,15 @@ const createMove = ({ face = LONG_FACES[0], inverted = false, double = false }) 
     face,
     longFace: SHORT_TO_LONG_MAP[face],
     inverted: !double && inverted,
-    double
+    double,
+    layerCount
   };
-};
-
-const generators = {
-  '3'({ length = 20 }) {
-    const scramble = [];
-    let lastAxis;
-    for(let i = 0; i < length; i++) {
-      const faceSelections = LONG_FACES.filter(face => FaceAxisInfo[face] !== lastAxis);
-      const rand = randomInRange(0, faceSelections.length);
-      const longFace = faceSelections[rand];
-      lastAxis = FaceAxisInfo[longFace];
-      scramble.push(createMove({
-        face: longFace,
-        inverted: coinFlip(),
-        double: coinFlip()
-      }));
-    }
-    return scramble;
-  }
 };
 
 /**
  * Generates a random scramble for the given cube size.
  * @param {object} [options]
- * @param {number} [options.cubeSize=3] - The size (number of layers) of the cube to generate a scramble for
+ * @param {number} [options.cubeSize] - The size (number of layers) of the cube to generate a scramble for
  * @param {number} [options.length] - The number of moves in the generated scramble. Default value depends on cube size.
  * @returns {Move[]} - A list of moves representing the scramble for the cube.
  * @example
@@ -101,8 +84,23 @@ const generators = {
  * // { face: 'R', longFace: 'RIGHT', inverted: true, double: false },
  * // { face: 'D', longFace: 'DOWN', inverted: false, double: true }, ... ]
  */
-export const generate = ({ cubeSize = 3, length } = {}) => {
-  return generators[cubeSize]({ length });
+export const generate = ({ cubeSize = 3, length = (cubeSize - 2) * 20 || 8 } = {}) => {
+  const scramble = [];
+  const maxLayers = Math.floor(cubeSize / 2);
+  let lastAxis;
+  for(let i = 0; i < length; i++) {
+    const faceSelections = LONG_FACES.filter(face => FaceAxisInfo[face] !== lastAxis);
+    const rand = randomInRange(0, faceSelections.length);
+    const longFace = faceSelections[rand];
+    lastAxis = FaceAxisInfo[longFace];
+    scramble.push(createMove({
+      face: longFace,
+      inverted: coinFlip(),
+      double: coinFlip(),
+      layerCount: randomInRange(1, maxLayers + 1)
+    }));
+  }
+  return scramble;
 };
 
 /**
@@ -126,14 +124,17 @@ export const format = (scramble) => {
   if(!Array.isArray(scramble)) return '';
   return scramble
     .filter(move => Faces[move.face])
-    .map(move => {
+    .map(({ double, inverted, layerCount, face }) => {
       let modifier = '';
-      if(move.double) {
-        modifier = Modifiers.DOUBLE;
-      } else if(move.inverted) {
-        modifier = Modifiers.INVERTED;
+      if(layerCount > 1) {
+        modifier += 'w';
       }
-      return `${Faces[move.face[0]]}${modifier}`;
+      if(double) {
+        modifier += Modifiers.DOUBLE;
+      } else if(inverted) {
+        modifier += Modifiers.INVERTED;
+      }
+      return `${layerCount > 2 ? layerCount : ''}${Faces[face[0]]}${modifier}`;
     }).join(' ');
 };
 

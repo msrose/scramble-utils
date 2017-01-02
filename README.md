@@ -44,6 +44,7 @@ Type: [object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 -   `longFace` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The long name of the face to turn e.g. 'RIGHT'
 -   `inverted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Indicates if the turn is to be made clockwise (`false`) or counter-clockwise (`true`)
 -   `double` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Indicates if the turn is 180 degrees. If `true`, `inverted` will always be `false`.
+-   `layerCount` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Indicates how many layers should be turned. Will be at least `1` and at most `Math.floor(cubeSize / 2)`.
 
 ### Faces
 
@@ -64,11 +65,11 @@ Generates a random scramble for the given cube size.
 **Parameters**
 
 -   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** 
-    -   `options.cubeSize` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The size (number of layers) of the cube to generate a scramble for (optional, default `3`)
+    -   `options.cubeSize` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The size (number of layers) of the cube to generate a scramble for
     -   `options.length` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of moves in the generated scramble. Default value depends on cube size.
 -   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
     -   `$0.cubeSize`   (optional, default `3`)
-    -   `$0.length`  
+    -   `$0.length`   (optional, default `(cubeSize - 2) * 20 || 8`)
 
 **Examples**
 
