@@ -109,6 +109,24 @@ describe('Scramble generator', () => {
     ]);
   });
 
+  it('parses a scramble with layer counts', () => {
+    expect(parse("3Rw2 4Lw' 9Fw 35Bw")).toEqual([
+      jasmine.objectContaining({ face: 'R', inverted: false, double: true, layerCount: 3 }),
+      jasmine.objectContaining({ face: 'L', inverted: true, double: false, layerCount: 4 }),
+      jasmine.objectContaining({ face: 'F', inverted: false, double: false, layerCount: 9 }),
+      jasmine.objectContaining({ face: 'B', inverted: false, double: false, layerCount: 35 })
+    ]);
+  });
+
+  it('parses scrambles with layer counts beginning with 2', () => {
+    expect(parse('23Rw')).toEqual([jasmine.objectContaining({ face: 'R', layerCount: 23 })]);
+  });
+
+  it('does not parse scrambles with layer counts and no wide modifier', () => {
+    expect(parse('3Rw2 4L')).toBeNull();
+    expect(parse('3Rw2 4L 9Fw')).toBeNull();
+  });
+
   it('returns null for invalid sequences when parsing', () => {
     expect(parse('llamas')).toBeNull();
     expect(parse(function() {})).toBeNull();

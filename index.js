@@ -158,12 +158,19 @@ const ModifierMap = Object.keys(Modifiers).reduce((map, key) => {
   return map;
 }, {});
 
+const Tokens = {
+  FACE: 'FACE',
+  MODIFIER: 'MODIFIER',
+  LAYER_COUNT: 'LAYER_COUNT'
+};
+
 const tokenize = (scrambleString) => {
+  // TODO: use errors (throw or return promise) instead of returning null
   if(typeof scrambleString !== 'string') return null;
   const tokens = [];
   let i = 0;
   while(i < scrambleString.length) {
-    const char = scrambleString[i];
+    let char = scrambleString[i];
     if(/\s/.test(char)) {
       i++;
       continue;
@@ -171,20 +178,46 @@ const tokenize = (scrambleString) => {
     const face = Faces[char.toUpperCase()];
     if(face) {
       tokens.push({
-        type: 'FACE',
+        type: Tokens.FACE,
         face,
         raw: char
       });
     } else {
-      const modifier = ModifierMap[char];
-      if(modifier) {
-        tokens.push({
-          type: 'MODIFIER',
-          modifier,
-          raw: char
-        });
+      if(/[0-9]/.test(char)) {
+        let number = char;
+        while(true) { // eslint-disable-line no-constant-condition
+          char = scrambleString[i + 1];
+          if(/[0-9]/.test(char)) {
+            number += String(char);
+          } else {
+            break;
+          }
+          i++;
+        }
+        if(number === Modifiers.DOUBLE) {
+          tokens.push({
+            type: Tokens.MODIFIER,
+            modifier: number,
+            raw: number
+          });
+        } else {
+          tokens.push({
+            type: Tokens.LAYER_COUNT,
+            value: parseInt(number, 10),
+            raw: number
+          });
+        }
       } else {
-        return null;
+        const modifier = ModifierMap[char];
+        if(modifier) {
+          tokens.push({
+            type: Tokens.MODIFIER,
+            modifier,
+            raw: char
+          });
+        } else {
+          return null;
+        }
       }
     }
     i++;
@@ -207,17 +240,38 @@ const tokenize = (scrambleString) => {
  * parse("R J Q D2 F U'"); // null
  */
 export const parse = (scrambleString) => {
+  // TODO: use errors (throw or return promise) instead of returning null
   const tokens = tokenize(scrambleString);
   if(!tokens) return null;
   const moves = [];
+  let nextLayerCount = 1;
+  // TODO: make this not disgusting
+  let expectWide = false;
+  let expectFace = false;
   for(let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
     switch(token.type) {
       case 'FACE': {
-        moves.push(createMove({ face: token.face }));
+        if(expectWide) {
+          return null;
+        }
+        moves.push(createMove({ face: token.face, layerCount: nextLayerCount }));
+        if(expectFace && nextLayerCount > 2) {
+          expectWide = true;
+        }
+        nextLayerCount = 1;
+        expectFace = false;
+        break;
+      }
+      case 'LAYER_COUNT': {
+        nextLayerCount = token.value;
+        expectFace = true;
         break;
       }
       case 'MODIFIER': {
+        if(expectFace) {
+          return null;
+        }
         const lastMove = moves[moves.length - 1];
         if(!lastMove) {
           return null;
@@ -233,10 +287,12 @@ export const parse = (scrambleString) => {
           lastMove.double = true;
           lastMove.inverted = false;
         } else if(token.modifier === Modifiers.WIDE) {
-          if(lastMove.layerCount >= 2) {
+          if(lastMove.layerCount < 2) {
+            lastMove.layerCount = 2;
+          } else if(!expectWide) {
             return null;
           }
-          lastMove.layerCount = 2;
+          expectWide = false;
         } else {
           return null;
         }
@@ -246,6 +302,9 @@ export const parse = (scrambleString) => {
         return null;
       }
     }
+  }
+  if(expectWide || expectFace) {
+    return null;
   }
   return moves;
 };
