@@ -225,6 +225,60 @@ const tokenize = (scrambleString) => {
   return tokens;
 };
 
+const States = {
+  START: 'START',
+  FACE: 'FACE',
+  FACE_AND_NON_WIDE_MODIFIER: 'FACE_AND_NON_WIDE_MODIFIER',
+  LAYER_COUNT: 'LAYER_COUNT',
+  LAYER_COUNT_AND_FACE: 'LAYER_COUNT_AND_FACE',
+  LAYER_COUNT_AND_FACE_AND_NON_WIDE_MODIFIER: 'LAYER_COUNT_AND_FACE_AND_NON_WIDE_MODIFIER',
+  LAYER_COUNT_AND_FACE_AND_WIDE_MODIFIER: 'LAYER_COUNT_AND_FACE_AND_WIDE_MODIFIER'
+};
+
+const transition = (state, token) => {
+  switch(state) {
+    case States.START:
+      return { [Tokens.FACE]: States.FACE, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }[token.type];
+    case States.FACE:
+      if(token.type === Tokens.MODIFIER) {
+        if(token.modifier === Modifiers.WIDE) {
+          return States.LAYER_COUNT_AND_FACE_AND_WIDE_MODIFIER;
+        } else {
+          return States.FACE_AND_NON_WIDE_MODIFIER;
+        }
+      }
+      return { [Tokens.FACE]: States.FACE, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }[token.type];
+    case States.FACE_AND_NON_WIDE_MODIFIER:
+      if(token.type === Tokens.MODIFIER) {
+        if(token.modifier === Modifiers.WIDE) {
+          return States.START;
+        }
+      }
+      return { [Tokens.FACE]: States.FACE, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }[token.type];
+    case States.LAYER_COUNT:
+      return { [Tokens.FACE]: States.LAYER_COUNT_AND_FACE }[token.type];
+    case States.LAYER_COUNT_AND_FACE:
+      if(token.type === Tokens.MODIFIER) {
+        if(token.modifier === Modifiers.WIDE) {
+          return States.LAYER_COUNT_AND_FACE_AND_WIDE_MODIFIER;
+        } else {
+          return States.LAYER_COUNT_AND_FACE_AND_NON_WIDE_MODIFIER;
+        }
+      }
+      break;
+    case States.LAYER_COUNT_AND_FACE_AND_NON_WIDE_MODIFIER:
+      if(token.type === Tokens.MODIFIER && token.modifier === Modifiers.WIDE) {
+        return States.START;
+      }
+      break;
+    case States.LAYER_COUNT_AND_FACE_AND_WIDE_MODIFIER:
+      if(token.type === Tokens.MODIFIER && token.modifier !== Modifiers.WIDE) {
+        return States.START;
+      }
+      return { [Tokens.FACE]: States.Face, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }[token.type];
+  }
+};
+
 /**
  * Takes a given string and parses it into a scramble of {@link Move} objects.
  * @param {string} scrambleString - The string to be parse as a scramble.
@@ -244,66 +298,48 @@ export const parse = (scrambleString) => {
   const tokens = tokenize(scrambleString);
   if(!tokens) return null;
   const moves = [];
-  let nextLayerCount = 1;
-  // TODO: make this not disgusting
-  let expectWide = false;
-  let expectFace = false;
+  let state = States.START;
   for(let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
-    switch(token.type) {
-      case 'FACE': {
-        if(expectWide) {
-          return null;
-        }
-        moves.push(createMove({ face: token.face, layerCount: nextLayerCount }));
-        if(expectFace && nextLayerCount > 2) {
-          expectWide = true;
-        }
-        nextLayerCount = 1;
-        expectFace = false;
+    const nextState = transition(state, token);
+    if(!nextState) return null;
+    switch(nextState) {
+      case States.FACE:
+        moves.push(createMove({ face: token.face }));
         break;
-      }
-      case 'LAYER_COUNT': {
-        nextLayerCount = token.value;
-        expectFace = true;
+      case States.LAYER_COUNT:
+        moves.push(createMove({ layerCount: token.value }));
         break;
-      }
-      case 'MODIFIER': {
-        if(expectFace) {
-          return null;
-        }
+      case States.LAYER_COUNT_AND_FACE:
+        moves[moves.length - 1].face = token.face;
+        break;
+      case States.START:
+      case States.FACE_AND_NON_WIDE_MODIFIER:
+      case States.LAYER_COUNT_AND_FACE_AND_NON_WIDE_MODIFIER:
+      case States.LAYER_COUNT_AND_FACE_AND_WIDE_MODIFIER: {
         const lastMove = moves[moves.length - 1];
-        if(!lastMove) {
-          return null;
-        }
-        if(token.modifier === Modifiers.INVERTED) {
-          if(!lastMove.double) {
-            lastMove.inverted = !lastMove.inverted;
-          }
-        } else if(token.modifier === Modifiers.DOUBLE) {
-          if(lastMove.double) {
-            return null;
-          }
-          lastMove.double = true;
-          lastMove.inverted = false;
-        } else if(token.modifier === Modifiers.WIDE) {
-          if(lastMove.layerCount < 2) {
-            lastMove.layerCount = 2;
-          } else if(!expectWide) {
-            return null;
-          }
-          expectWide = false;
-        } else {
-          return null;
+        switch(token.modifier) {
+          case Modifiers.WIDE:
+            if(lastMove.layerCount < 2) {
+              lastMove.layerCount = 2;
+            }
+            break;
+          case Modifiers.DOUBLE:
+            lastMove.double = true;
+            break;
+          case Modifiers.INVERTED:
+            lastMove.inverted = true;
+            break;
         }
         break;
-      }
-      default: {
-        return null;
       }
     }
+    state = nextState;
   }
-  if(expectWide || expectFace) {
+  if(state !== States.START &&
+     state !== States.FACE &&
+     state !== States.FACE_AND_NON_WIDE_MODIFIER &&
+     state !== States.LAYER_COUNT_AND_FACE_AND_WIDE_MODIFIER) {
     return null;
   }
   return moves;

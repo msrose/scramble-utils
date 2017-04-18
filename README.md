@@ -108,6 +108,8 @@ Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ### formatted
 
+-   **See: [generate](#generate)**
+
 Generates a random formatted scramble.
 
 **Parameters**
