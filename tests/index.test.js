@@ -1,16 +1,12 @@
 import { Faces, generate, format, formatted, parse } from '../index';
 
 describe('Scramble generator', () => {
-  const faceList = ['RIGHT', 'UP', 'LEFT', 'DOWN', 'FRONT', 'BACK'];
-  const shortFaceList = faceList.map(m => m[0]);
+  const faceList = ['R', 'U', 'L', 'D', 'F', 'B'];
 
   it('exports the cube moves', () => {
-    const {
-      R, U, L, D, F, B,
-      RIGHT, UP, LEFT, DOWN, FRONT, BACK
-    } = Faces;
-    expect([R, U, L, D, F, B]).toEqual(shortFaceList);
-    expect([RIGHT, UP, LEFT, DOWN, FRONT, BACK]).toEqual(faceList);
+    expect(Faces).toEqual(expect.objectContaining({
+      R: 'R', U: 'U', L: 'L', D: 'D', F: 'F', B: 'B'
+    }));
   });
 
   it('generates a scramble for 3x3x3 by default', () => {
@@ -20,7 +16,7 @@ describe('Scramble generator', () => {
       expect(typeof move.inverted).toBe('boolean');
       expect(typeof move.double).toBe('boolean');
       expect(typeof move.layerCount).toBe('number');
-      expect(shortFaceList).toContain(move.face);
+      expect(faceList).toContain(move.face);
     });
   });
 
@@ -56,9 +52,9 @@ describe('Scramble generator', () => {
       { face: Faces.D }
     ])).toBe("R' U2 F L B' D");
     expect(format([
-      { face: Faces.RIGHT, inverted: true },
-      { face: Faces.UP },
-      { face: Faces.FRONT }
+      { face: Faces.R, inverted: true },
+      { face: Faces.U },
+      { face: Faces.F }
     ])).toBe("R' U F");
   });
 
@@ -72,7 +68,7 @@ describe('Scramble generator', () => {
 
   it("doesn't include invalid moves in a formatted scramble", () => {
     expect(format([{ face: 'Q' }])).toBe('');
-    expect(format([{ face: 'Q' }, { face: Faces.UP }])).toBe('U');
+    expect(format([{ face: 'Q' }, { face: Faces.U }])).toBe('U');
   });
 
   it('parses a scramble string into array format', () => {
@@ -83,10 +79,10 @@ describe('Scramble generator', () => {
       expect.objectContaining({ face: 'U', inverted: true, double: false })
     ]);
     expect(parse('d   f b  l')).toEqual([
-      expect.objectContaining({ face: 'D', longFace: 'DOWN' }),
-      expect.objectContaining({ face: 'F', longFace: 'FRONT' }),
-      expect.objectContaining({ face: 'B', longFace: 'BACK' }),
-      expect.objectContaining({ face: 'L', longFace: 'LEFT' })
+      expect.objectContaining({ face: 'D' }),
+      expect.objectContaining({ face: 'F' }),
+      expect.objectContaining({ face: 'B' }),
+      expect.objectContaining({ face: 'L' })
     ]);
     expect(parse('  ')).toEqual([]);
   });

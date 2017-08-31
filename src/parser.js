@@ -62,10 +62,10 @@ const transition = (state, token) => {
  * @example
  * import { parse } from 'scramble-generator';
  * parse("R' U F D2");
- * // [ { face: 'R', longFace: 'RIGHT', inverted: true, double: false },
- * // { face: 'U', longFace: 'UP', inverted: false, double: false },
- * // { face: 'F', longFace: 'FRONT', inverted: false, double: false },
- * // { face: 'D', longFace: 'DOWN', inverted: false, double: true } ]
+ * // [ { face: 'R', inverted: true, double: false },
+ * // { face: 'U', inverted: false, double: false },
+ * // { face: 'F', inverted: false, double: false },
+ * // { face: 'D', inverted: false, double: true } ]
  *
  * parse("R J Q D2 F U'"); // null
  */

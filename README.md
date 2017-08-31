@@ -36,27 +36,14 @@ parse("B2 R'") // [ { face: 'B', longFace: 'BACK', inverted: false, double: true
 
 A turn of the cube is represented throughout as a Move object, which has all the properties necessary to describe how a given turn must be executed.
 
-Type: [object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+Type: {face: Face, inverted: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), double: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), layerCount: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)}
 
 **Properties**
 
--   `face` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The short name of the face to turn e.g. 'R'
--   `longFace` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The long name of the face to turn e.g. 'RIGHT'
--   `inverted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Indicates if the turn is to be made clockwise (`false`) or counter-clockwise (`true`)
--   `double` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Indicates if the turn is 180 degrees. If `true`, `inverted` will always be `false`.
--   `layerCount` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Indicates how many layers should be turned. Will be at least `1` and at most `Math.floor(cubeSize / 2)`.
-
-### Faces
-
-Map of constants representing names of cube faces. The keys are 'RIGHT', 'UP', 'LEFT', 'DOWN', 'BACK', and 'FRONT'.
-
-**Examples**
-
-```javascript
-import { Faces } from 'scramble-generator';
-Faces.RIGHT; // 'RIGHT'
-Faces.R; // 'R'
-```
+-   `face` **Face** 
+-   `inverted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   `double` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   `layerCount` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 ### format
 
@@ -109,21 +96,21 @@ Generates a random scramble for the given cube size.
 
 **Parameters**
 
--   `$0` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?**  (optional, default `{}`)
-    -   `$0.cubeSize` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The size (number of layers) of the cube to generate a scramble for (optional, default `3`)
-    -   `$0.length` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The number of moves in the generated scramble. Default value depends on cube size. (optional, default `(cubeSize-2)*20||8`)
+-   `$0` **any**  (optional, default `{}`)
+    -   `$0.cubeSize`   (optional, default `3`)
+    -   `$0.length`   (optional, default `(cubeSize-2)*20||8`)
 
 **Examples**
 
 ```javascript
 import { generate } from 'scramble-generator';
 generate({ cubeSize: 3 });
-// [ { face: 'U', longFace: 'UP', inverted: false, double: true },
-// { face: 'R', longFace: 'RIGHT', inverted: true, double: false },
-// { face: 'D', longFace: 'DOWN', inverted: false, double: true }, ... ]
+// [ { face: 'U', inverted: false, double: true },
+// { face: 'R', inverted: true, double: false },
+// { face: 'D', inverted: false, double: true }, ... ]
 ```
 
-Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>** A list of moves representing the scramble for the cube.
+Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>** 
 
 ### parse
 
@@ -138,10 +125,10 @@ Takes a given string and parses it into a scramble of [Move](#move) objects.
 ```javascript
 import { parse } from 'scramble-generator';
 parse("R' U F D2");
-// [ { face: 'R', longFace: 'RIGHT', inverted: true, double: false },
-// { face: 'U', longFace: 'UP', inverted: false, double: false },
-// { face: 'F', longFace: 'FRONT', inverted: false, double: false },
-// { face: 'D', longFace: 'DOWN', inverted: false, double: true } ]
+// [ { face: 'R', inverted: true, double: false },
+// { face: 'U', inverted: false, double: false },
+// { face: 'F', inverted: false, double: false },
+// { face: 'D', inverted: false, double: true } ]
 
 parse("R J Q D2 F U'"); // null
 ```
