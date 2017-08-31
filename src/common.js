@@ -1,3 +1,5 @@
+// @flow
+
 export const Axes = {
   X: 'X',
   Y: 'Y',
@@ -51,7 +53,22 @@ export const Faces = LONG_FACES.reduce((faceMap, faceName) => {
   return faceMap;
 }, {});
 
-export const createMove = ({ face = LONG_FACES[0], inverted = false, double = false, layerCount = 1 }) => {
+export type MoveConfig = {
+  face: string,
+  inverted: boolean,
+  double: boolean,
+  layerCount: number
+};
+
+export type Move = {
+  face: string,
+  longFace: string,
+  inverted: boolean,
+  double: boolean,
+  layerCount: number
+};
+
+export const createMove = ({ face = LONG_FACES[0], inverted = false, double = false, layerCount = 1 }: MoveConfig): Move => {
   if(Faces[face]) {
     face = face[0];
   }
