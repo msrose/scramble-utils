@@ -36,9 +36,6 @@
     "webpack": "^1.14.0"
   },
   "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      ".eslintrc"
-    ]
+    "testEnvironment": "node"
   }
 }
