@@ -26,12 +26,15 @@
   },
   "homepage": "https://github.com/msrose/scramble-generator#readme",
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
     "documentation": "^5.2.2",
     "eslint": "^4.5.0",
     "eslint-config-msrose": "^1.0.0",
+    "flow-bin": "^0.53.1",
     "jest": "^20.0.4",
     "webpack": "^3.5.5"
   },
