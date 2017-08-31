@@ -58,28 +58,6 @@ Faces.RIGHT; // 'RIGHT'
 Faces.R; // 'R'
 ```
 
-### generate
-
-Generates a random scramble for the given cube size.
-
-**Parameters**
-
--   `$0` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** 
-    -   `$0.cubeSize` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The size (number of layers) of the cube to generate a scramble for (optional, default `3`)
-    -   `$0.length` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The number of moves in the generated scramble. Default value depends on cube size. (optional, default `(cubeSize-2)*20||8`)
-
-**Examples**
-
-```javascript
-import { generate } from 'scramble-generator';
-generate({ cubeSize: 3 });
-// [ { face: 'U', longFace: 'UP', inverted: false, double: true },
-// { face: 'R', longFace: 'RIGHT', inverted: true, double: false },
-// { face: 'D', longFace: 'DOWN', inverted: false, double: true }, ... ]
-```
-
-Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>** A list of moves representing the scramble for the cube.
-
 ### format
 
 Formats a given scramble as a string.
@@ -124,6 +102,28 @@ formatted({ cubeSize: 3 }); // "F2 R2 F D2 L U2 L U2 F2 D2 R' F2 L' D' B2 R2 F2 
 ```
 
 Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The formatted scramble.
+
+### generate
+
+Generates a random scramble for the given cube size.
+
+**Parameters**
+
+-   `$0` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?**  (optional, default `{}`)
+    -   `$0.cubeSize` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The size (number of layers) of the cube to generate a scramble for (optional, default `3`)
+    -   `$0.length` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The number of moves in the generated scramble. Default value depends on cube size. (optional, default `(cubeSize-2)*20||8`)
+
+**Examples**
+
+```javascript
+import { generate } from 'scramble-generator';
+generate({ cubeSize: 3 });
+// [ { face: 'U', longFace: 'UP', inverted: false, double: true },
+// { face: 'R', longFace: 'RIGHT', inverted: true, double: false },
+// { face: 'D', longFace: 'DOWN', inverted: false, double: true }, ... ]
+```
+
+Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>** A list of moves representing the scramble for the cube.
 
 ### parse
 
