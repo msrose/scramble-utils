@@ -77,40 +77,40 @@ describe('Scramble generator', () => {
 
   it('parses a scramble string into array format', () => {
     expect(parse("R U2 R' U'")).toEqual([
-      jasmine.objectContaining({ face: 'R', inverted: false, double: false }),
-      jasmine.objectContaining({ face: 'U', inverted: false, double: true }),
-      jasmine.objectContaining({ face: 'R', inverted: true, double: false }),
-      jasmine.objectContaining({ face: 'U', inverted: true, double: false })
+      expect.objectContaining({ face: 'R', inverted: false, double: false }),
+      expect.objectContaining({ face: 'U', inverted: false, double: true }),
+      expect.objectContaining({ face: 'R', inverted: true, double: false }),
+      expect.objectContaining({ face: 'U', inverted: true, double: false })
     ]);
     expect(parse('d   f b  l')).toEqual([
-      jasmine.objectContaining({ face: 'D', longFace: 'DOWN' }),
-      jasmine.objectContaining({ face: 'F', longFace: 'FRONT' }),
-      jasmine.objectContaining({ face: 'B', longFace: 'BACK' }),
-      jasmine.objectContaining({ face: 'L', longFace: 'LEFT' })
+      expect.objectContaining({ face: 'D', longFace: 'DOWN' }),
+      expect.objectContaining({ face: 'F', longFace: 'FRONT' }),
+      expect.objectContaining({ face: 'B', longFace: 'BACK' }),
+      expect.objectContaining({ face: 'L', longFace: 'LEFT' })
     ]);
     expect(parse('  ')).toEqual([]);
   });
 
   it('parses a scramble with wide modifiers', () => {
     expect(parse("Rw' Lw2 F2w B'w")).toEqual([
-      jasmine.objectContaining({ face: 'R', inverted: true, double: false, layerCount: 2 }),
-      jasmine.objectContaining({ face: 'L', inverted: false, double: true, layerCount: 2 }),
-      jasmine.objectContaining({ face: 'F', inverted: false, double: true, layerCount: 2 }),
-      jasmine.objectContaining({ face: 'B', inverted: true, double: false, layerCount: 2 })
+      expect.objectContaining({ face: 'R', inverted: true, double: false, layerCount: 2 }),
+      expect.objectContaining({ face: 'L', inverted: false, double: true, layerCount: 2 }),
+      expect.objectContaining({ face: 'F', inverted: false, double: true, layerCount: 2 }),
+      expect.objectContaining({ face: 'B', inverted: true, double: false, layerCount: 2 })
     ]);
   });
 
   it('parses a scramble with layer counts', () => {
     expect(parse("3Rw2 4Lw' 9Fw 35Bw")).toEqual([
-      jasmine.objectContaining({ face: 'R', inverted: false, double: true, layerCount: 3 }),
-      jasmine.objectContaining({ face: 'L', inverted: true, double: false, layerCount: 4 }),
-      jasmine.objectContaining({ face: 'F', inverted: false, double: false, layerCount: 9 }),
-      jasmine.objectContaining({ face: 'B', inverted: false, double: false, layerCount: 35 })
+      expect.objectContaining({ face: 'R', inverted: false, double: true, layerCount: 3 }),
+      expect.objectContaining({ face: 'L', inverted: true, double: false, layerCount: 4 }),
+      expect.objectContaining({ face: 'F', inverted: false, double: false, layerCount: 9 }),
+      expect.objectContaining({ face: 'B', inverted: false, double: false, layerCount: 35 })
     ]);
   });
 
   it('parses scrambles with layer counts beginning with 2', () => {
-    expect(parse('23Rw')).toEqual([jasmine.objectContaining({ face: 'R', layerCount: 23 })]);
+    expect(parse('23Rw')).toEqual([expect.objectContaining({ face: 'R', layerCount: 23 })]);
   });
 
   it('does not parse scrambles with layer counts and no wide modifier', () => {

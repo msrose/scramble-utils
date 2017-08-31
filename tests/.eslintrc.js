@@ -1,6 +1,3 @@
 module.exports = {
-  env: {
-    jest: true,
-    jasmine: true
-  }
+  extends: 'msrose/jest'
 };
