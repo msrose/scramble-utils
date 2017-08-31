@@ -9,7 +9,12 @@ export const Axes = {
 };
 export type Axis = $Keys<typeof Axes>;
 
-export const FaceAxisInfo: { [Face]: Axis } = {
+/**
+ * The face of the cube to turn is represented by a single-character string
+ */
+export type Face = 'R' | 'L' | 'U' | 'D' | 'F' | 'B';
+
+export const FaceAxisInfo = {
   R: Axes.X,
   L: Axes.X,
   U: Axes.Y,
@@ -17,9 +22,15 @@ export const FaceAxisInfo: { [Face]: Axis } = {
   F: Axes.Z,
   B: Axes.Z
 };
-export type Face = $Keys<typeof FaceAxisInfo>;
-const FaceList = Object.keys(FaceAxisInfo);
-export const Faces = FaceList.reduce((map, face) => Object.assign(map, { [face]: face }), {});
+
+/**
+ * Map of Faces.
+ * @example
+ * import { Faces } from 'scramble-generator';
+ * Faces.R; // 'R'
+ * Faces.U; // 'U'
+ */
+export const Faces = { R: 'R', L: 'L', U: 'U', D: 'D', F: 'F', B: 'B' };
 
 export const Modifiers = {
   INVERTED: "'",
@@ -40,7 +51,7 @@ export type Move = {
 type MoveConfig = Move;
 
 export const createMove = (move: MoveConfig): Move => {
-  const { face = Faces[0], inverted = false, double = false, layerCount = 1 } = move;
+  const { face = Faces.R, inverted = false, double = false, layerCount = 1 } = move;
   return {
     face,
     inverted: !double && inverted,

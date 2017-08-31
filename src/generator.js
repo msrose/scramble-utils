@@ -2,7 +2,7 @@
 
 import { randomInRange, coinFlip } from './helpers';
 import { Faces, FaceAxisInfo, createMove } from './common';
-import type { Move, Axis } from './common';
+import type { Move } from './common';
 
 export type GenerateConfig = {
   cubeSize: number,
@@ -21,7 +21,7 @@ export type GenerateConfig = {
 export const generate = ({ cubeSize = 3, length = (cubeSize - 2) * 20 || 8 }: GenerateConfig = {}): Move[] => {
   const scramble = [];
   const maxLayers = Math.floor(cubeSize / 2);
-  let lastAxis: ?Axis = null;
+  let lastAxis;
   for(let i = 0; i < length; i++) {
     const faceSelections = Object.keys(Faces).filter(face => FaceAxisInfo[face] !== lastAxis);
     const rand = randomInRange(0, faceSelections.length);

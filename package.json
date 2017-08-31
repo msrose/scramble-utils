@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
-    "docs": "documentation readme -s API index.js src/**",
+    "docs": "documentation readme index.js --section=API",
     "build": "yarn run docs && webpack",
     "prepublish": "yarn run build"
   },

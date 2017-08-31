@@ -14,11 +14,11 @@ import { formatted, generate, parse } from 'scramble-generator';
 
 formatted({ cubeSize: 3 }) // "R U' F2 D2 F2 L2 B2 R F' L' U' F' U2 R F U R D' L2 U2"
 
-generate({ cubeSize: 3 }) // [ { face: 'B', longFace: 'BACK', inverted: false, double: true },
-                          // { face: 'R', longFace: 'RIGHT', inverted: true, double: false }, ... ]
+generate({ cubeSize: 3 }) // [ { face: 'B', inverted: false, double: true },
+                          // { face: 'R', inverted: true, double: false }, ... ]
 
-parse("B2 R'") // [ { face: 'B', longFace: 'BACK', inverted: false, double: true },
-               // { face: 'R', longFace: 'RIGHT', inverted: true, double: false } ]
+parse("B2 R'") // [ { face: 'B', inverted: false, double: true },
+               // { face: 'R', inverted: true, double: false } ]
 ```
 
 ## API
@@ -32,18 +32,27 @@ parse("B2 R'") // [ { face: 'B', longFace: 'BACK', inverted: false, double: true
 -   **author**: Michael Rose
 -   **license**: https&#x3A;//github.com/msrose/scramble-generator/blob/master/LICENSE
 
-### Move
+### generate
 
-A turn of the cube is represented throughout as a Move object, which has all the properties necessary to describe how a given turn must be executed.
+Generates a random scramble for the given cube size.
 
-Type: {face: Face, inverted: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), double: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), layerCount: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)}
+**Parameters**
 
-**Properties**
+-   `$0` **any**  (optional, default `{}`)
+    -   `$0.cubeSize`   (optional, default `3`)
+    -   `$0.length`   (optional, default `(cubeSize-2)*20||8`)
 
--   `face` **Face** 
--   `inverted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
--   `double` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
--   `layerCount` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+**Examples**
+
+```javascript
+import { generate } from 'scramble-generator';
+generate({ cubeSize: 3 });
+// [ { face: 'U', inverted: false, double: true },
+// { face: 'R', inverted: true, double: false },
+// { face: 'D', inverted: false, double: true }, ... ]
+```
+
+Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>** 
 
 ### format
 
@@ -90,28 +99,6 @@ formatted({ cubeSize: 3 }); // "F2 R2 F D2 L U2 L U2 F2 D2 R' F2 L' D' B2 R2 F2 
 
 Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The formatted scramble.
 
-### generate
-
-Generates a random scramble for the given cube size.
-
-**Parameters**
-
--   `$0` **any**  (optional, default `{}`)
-    -   `$0.cubeSize`   (optional, default `3`)
-    -   `$0.length`   (optional, default `(cubeSize-2)*20||8`)
-
-**Examples**
-
-```javascript
-import { generate } from 'scramble-generator';
-generate({ cubeSize: 3 });
-// [ { face: 'U', inverted: false, double: true },
-// { face: 'R', inverted: true, double: false },
-// { face: 'D', inverted: false, double: true }, ... ]
-```
-
-Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>** 
-
 ### parse
 
 Takes a given string and parses it into a scramble of [Move](#move) objects.
@@ -134,3 +121,34 @@ parse("R J Q D2 F U'"); // null
 ```
 
 Returns **([Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)> | null)** An array of Move objects representing the given scramble, or null if the scramble isn't valid.
+
+### Face
+
+The face of the cube to turn is represented by a single-character string
+
+Type: (`"R"` \| `"L"` \| `"U"` \| `"D"` \| `"F"` \| `"B"`)
+
+### Faces
+
+Map of Faces.
+
+**Examples**
+
+```javascript
+import { Faces } from 'scramble-generator';
+Faces.R; // 'R'
+Faces.U; // 'U'
+```
+
+### Move
+
+A turn of the cube is represented throughout as a Move object, which has all the properties necessary to describe how a given turn must be executed.
+
+Type: {face: [Face](#face), inverted: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), double: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), layerCount: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)}
+
+**Properties**
+
+-   `face` **[Face](#face)** 
+-   `inverted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   `double` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   `layerCount` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
