@@ -1,46 +1,43 @@
 // @noflow
 
-import { Faces, generate, format, formatted, parse } from '../index';
+import {
+  Faces,
+  generateScramble as generate,
+  formatScramble as format,
+  parseScramble as parse
+} from '../index';
 
 describe('Scramble generator', () => {
-  const faceList = ['R', 'U', 'L', 'D', 'F', 'B'];
-
   it('exports the cube moves', () => {
-    expect(Faces).toEqual(expect.objectContaining({
+    expect(Faces).toEqual({
       R: 'R', U: 'U', L: 'L', D: 'D', F: 'F', B: 'B'
-    }));
-  });
-
-  it('generates a scramble for 3x3x3 by default', () => {
-    const scramble = generate();
-    expect(scramble.length).toBe(20);
-    scramble.forEach((move) => { // eslint-disable-line
-      expect(typeof move.inverted).toBe('boolean');
-      expect(typeof move.double).toBe('boolean');
-      expect(typeof move.layerCount).toBe('number');
-      expect(faceList).toContain(move.face);
     });
   });
 
+  it('generates a scramble for 3x3x3 by default', () => {
+    const scramble = generate({ formatted: false });
+    expect(scramble.length).toBe(20);
+  });
+
   it('generates a scramble of the specified length', () => {
-    const scramble = generate({ length: 14 });
+    const scramble = generate({ length: 14, formatted: false });
     expect(scramble.length).toBe(14);
   });
 
   it('generates a formatted scramble for 3x3x3', () => {
-    expect(formatted({ cubeSize: 3 }).replace(/[2' ]/g, '')).toMatch(/[RULDFB]{20}/);
+    expect(generate({ cubeSize: 3 }).replace(/[2' ]/g, '')).toMatch(/[RULDFB]{20}/);
   });
 
   it('generates different 3x3x3 scrambles', () => {
-    expect(formatted({ cubeSize: 3 })).not.toBe(formatted({ cubeSize: 3 }));
+    expect(generate({ cubeSize: 3 })).not.toBe(generate({ cubeSize: 3 }));
   });
 
   it('generates scrambles for other cubes', () => {
-    expect(generate({ cubeSize: 2 }).length).toBe(8);
-    expect(generate({ cubeSize: 4 }).length).toBe(40);
-    expect(generate({ cubeSize: 5 }).length).toBe(60);
-    expect(generate({ cubeSize: 6 }).length).toBe(80);
-    expect(generate({ cubeSize: 7 }).length).toBe(100);
+    expect(generate({ cubeSize: 2, formatted: false }).length).toBe(8);
+    expect(generate({ cubeSize: 4, formatted: false }).length).toBe(40);
+    expect(generate({ cubeSize: 5, formatted: false }).length).toBe(60);
+    expect(generate({ cubeSize: 6, formatted: false }).length).toBe(80);
+    expect(generate({ cubeSize: 7, formatted: false }).length).toBe(100);
   });
 
   it('formats a given scramble for 3x3x3', () => {

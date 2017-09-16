@@ -6,7 +6,7 @@
  * @flow
  */
 
-export { generate } from './src/generator';
-export { format, formatted } from './src/formatter';
-export { parse } from './src/parser';
+export { generateScramble } from './src/generator';
+export { formatScramble } from './src/formatter';
+export { parseScramble } from './src/parser';
 export { Faces } from './src/common';

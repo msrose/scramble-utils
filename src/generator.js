@@ -3,10 +3,12 @@
 import { randomInRange, coinFlip } from './helpers';
 import { FaceList, FaceAxisInfo, createMove } from './common';
 import type { Move } from './common';
+import { formatScramble } from './formatter';
 
 export type GenerateConfig = {
-  cubeSize: number,
-  length: number
+  cubeSize?: number,
+  length?: number,
+  formatted?: boolean
 };
 
 /**
@@ -18,7 +20,11 @@ export type GenerateConfig = {
  * // { face: 'R', inverted: true, double: false },
  * // { face: 'D', inverted: false, double: true }, ... ]
  */
-export const generate = ({ cubeSize = 3, length = (cubeSize - 2) * 20 || 8 }: GenerateConfig = {}): Move[] => {
+export const generateScramble = ({
+  cubeSize = 3,
+  length = (cubeSize - 2) * 20 || 8,
+  formatted = true
+}: GenerateConfig = {}): string | Move[] => {
   const scramble = [];
   const maxLayers = Math.floor(cubeSize / 2);
   let lastAxis;
@@ -34,5 +40,5 @@ export const generate = ({ cubeSize = 3, length = (cubeSize - 2) * 20 || 8 }: Ge
       layerCount: randomInRange(1, maxLayers + 1)
     }));
   }
-  return scramble;
+  return formatted ? formatScramble(scramble) : scramble;
 };

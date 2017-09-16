@@ -84,7 +84,7 @@ const transition = (state: State, token: Token): ?State => {
  *
  * parse("R J Q D2 F U'"); // null
  */
-export const parse = (scrambleString: string): Move[] | null => {
+export const parseScramble = (scrambleString: string): Move[] | null => {
   // TODO: use errors (throw or return promise) instead of returning null
   const tokens = tokenize(scrambleString);
   if(!tokens) return null;
