@@ -1,9 +1,11 @@
 [ignore]
 .*/node_modules/.*
+
 [include]
 
 [libs]
 
 [lints]
+all=warn
 
 [options]
