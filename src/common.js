@@ -7,12 +7,8 @@ export const Axes = {
   Y: 'Y',
   Z: 'Z'
 };
-export type Axis = $Keys<typeof Axes>;
 
-/**
- * The face of the cube to turn is represented by a single-character string
- */
-export type Face = 'R' | 'L' | 'U' | 'D' | 'F' | 'B';
+export type Axis = $Keys<typeof Axes>;
 
 export const FaceAxisInfo = {
   R: Axes.X,
@@ -23,6 +19,8 @@ export const FaceAxisInfo = {
   B: Axes.Z
 };
 
+export const FaceList = Object.keys(FaceAxisInfo);
+
 /**
  * Map of Faces.
  * @example
@@ -30,7 +28,15 @@ export const FaceAxisInfo = {
  * Faces.R; // 'R'
  * Faces.U; // 'U'
  */
-export const Faces = { R: 'R', L: 'L', U: 'U', D: 'D', F: 'F', B: 'B' };
+export const Faces: { [Face]: Face } = FaceList.reduce(
+  (map, face) => Object.assign(map, { [face]: face }),
+  {}
+);
+
+/**
+ * The face of the cube to turn is represented by a single-character string
+ */
+export type Face = $Keys<typeof FaceAxisInfo>;
 
 export const Modifiers = {
   INVERTED: "'",
