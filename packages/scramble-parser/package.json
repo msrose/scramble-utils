@@ -1,0 +1,8 @@
+{
+  "name": "scramble-parser",
+  "version": "0.0.1",
+  "description": "Parse Rubik's cube scrambles",
+  "main": "index.js",
+  "author": "Michael Rose <michael_rose@outlook.com>",
+  "license": "MIT"
+}
