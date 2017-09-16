@@ -1,5 +1,10 @@
+// @flow
+
 import { Faces, Modifiers } from './common';
 import { generate } from './generator';
+import type { Move } from './common';
+import type { GenerateConfig } from './generator';
+
 /**
  * Formats a given scramble as a string.
  * @param {Move[]} [scramble] - List of Move objects representing a scramble to be formatted.
@@ -17,11 +22,11 @@ import { generate } from './generator';
  * }])
  * // "R' U2 L"
  */
-export const format = (scramble) => {
+export const format = (scramble: Move[]): string => {
   if(!Array.isArray(scramble)) return '';
   return scramble
     .filter(move => Faces[move.face])
-    .map(({ double, inverted, layerCount, face }) => {
+    .map(({ double, inverted, layerCount, face }: Move): string => {
       let modifier = '';
       if(layerCount > 1) {
         modifier += Modifiers.WIDE;
@@ -31,7 +36,7 @@ export const format = (scramble) => {
       } else if(inverted) {
         modifier += Modifiers.INVERTED;
       }
-      return `${layerCount > 2 ? layerCount : ''}${Faces[face[0]]}${modifier}`;
+      return `${layerCount > 2 ? layerCount : ''}${face}${modifier}`;
     }).join(' ');
 };
 
@@ -44,6 +49,6 @@ export const format = (scramble) => {
  * formatted({ cubeSize: 3 }); // "F2 R2 F D2 L U2 L U2 F2 D2 R' F2 L' D' B2 R2 F2 R2 F2 R2"
  * @see {@link generate}
  */
-export const formatted = (options) => {
+export const formatted = (options: GenerateConfig): string => {
   return format(generate(options));
 };

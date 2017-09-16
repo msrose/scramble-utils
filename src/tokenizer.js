@@ -1,12 +1,9 @@
-import { Modifiers, Faces, Tokens } from './common';
+// @flow
 
-const ModifierMap = Object.keys(Modifiers).reduce((map, key) => {
-  const modifier = Modifiers[key];
-  map[modifier] = modifier;
-  return map;
-}, {});
+import { Modifiers, Tokens, FaceList } from './common';
+import type { Token } from './common';
 
-export const tokenize = (scrambleString) => {
+export const tokenize = (scrambleString: string): Token[] | null => {
   // TODO: use errors (throw or return promise) instead of returning null
   if(typeof scrambleString !== 'string') return null;
   const tokens = [];
@@ -17,7 +14,8 @@ export const tokenize = (scrambleString) => {
       i++;
       continue;
     }
-    const face = Faces[char.toUpperCase()];
+    // Use find here instead of object map for flow
+    const face = FaceList.find(face => face === char.toUpperCase());
     if(face) {
       tokens.push({
         type: Tokens.FACE,
@@ -27,7 +25,7 @@ export const tokenize = (scrambleString) => {
     } else {
       if(/[0-9]/.test(char)) {
         let number = char;
-        while(true) { // eslint-disable-line no-constant-condition
+        for(;;) {
           char = scrambleString[i + 1];
           if(/[0-9]/.test(char)) {
             number += String(char);
@@ -39,7 +37,7 @@ export const tokenize = (scrambleString) => {
         if(number === Modifiers.DOUBLE) {
           tokens.push({
             type: Tokens.MODIFIER,
-            modifier: number,
+            modifier: Modifiers.DOUBLE, // explicitly stating Modifier for flow
             raw: number
           });
         } else {
@@ -50,7 +48,9 @@ export const tokenize = (scrambleString) => {
           });
         }
       } else {
-        const modifier = ModifierMap[char];
+        // using these next two lines instead of a map because of flow
+        const key = Object.keys(Modifiers).find(key => Modifiers[key] === char);
+        const modifier = key && Modifiers[key];
         if(modifier) {
           tokens.push({
             type: Tokens.MODIFIER,

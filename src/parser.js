@@ -1,5 +1,8 @@
+// @flow
+
 import { Tokens, Modifiers, createMove } from './common';
 import { tokenize } from './tokenizer';
+import type { Token, Move, TokenType } from './common';
 
 const States = {
   START: 'START',
@@ -11,10 +14,22 @@ const States = {
   LAYER_COUNT_AND_FACE_AND_WIDE_MODIFIER: 'LAYER_COUNT_AND_FACE_AND_WIDE_MODIFIER'
 };
 
-const transition = (state, token) => {
+type State = $Keys<typeof States>;
+
+const getNextState = (transitions: { [TokenType]: State }, tokenType: TokenType): ?State => {
+  // explicitly list all possible TokenTypes in this literal for flow
+  const defaults = {
+    [Tokens.FACE]: void 0,
+    [Tokens.LAYER_COUNT]: void 0,
+    [Tokens.MODIFIER]: void 0
+  };
+  return Object.assign(defaults, transitions)[tokenType];
+};
+
+const transition = (state: State, token: Token): ?State => {
   switch(state) {
     case States.START:
-      return { [Tokens.FACE]: States.FACE, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }[token.type];
+      return getNextState({ [Tokens.FACE]: States.FACE, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }, token.type);
     case States.FACE:
       if(token.type === Tokens.MODIFIER) {
         if(token.modifier === Modifiers.WIDE) {
@@ -23,16 +38,16 @@ const transition = (state, token) => {
           return States.FACE_AND_NON_WIDE_MODIFIER;
         }
       }
-      return { [Tokens.FACE]: States.FACE, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }[token.type];
+      return getNextState({ [Tokens.FACE]: States.FACE, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }, token.type);
     case States.FACE_AND_NON_WIDE_MODIFIER:
       if(token.type === Tokens.MODIFIER) {
         if(token.modifier === Modifiers.WIDE) {
           return States.START;
         }
       }
-      return { [Tokens.FACE]: States.FACE, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }[token.type];
+      return getNextState({ [Tokens.FACE]: States.FACE, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }, token.type);
     case States.LAYER_COUNT:
-      return { [Tokens.FACE]: States.LAYER_COUNT_AND_FACE }[token.type];
+      return getNextState({ [Tokens.FACE]: States.LAYER_COUNT_AND_FACE }, token.type);
     case States.LAYER_COUNT_AND_FACE:
       if(token.type === Tokens.MODIFIER) {
         if(token.modifier === Modifiers.WIDE) {
@@ -51,7 +66,7 @@ const transition = (state, token) => {
       if(token.type === Tokens.MODIFIER && token.modifier !== Modifiers.WIDE) {
         return States.START;
       }
-      return { [Tokens.FACE]: States.Face, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }[token.type];
+      return getNextState({ [Tokens.FACE]: States.FACE, [Tokens.LAYER_COUNT]: States.LAYER_COUNT }, token.type);
   }
 };
 
@@ -69,7 +84,7 @@ const transition = (state, token) => {
  *
  * parse("R J Q D2 F U'"); // null
  */
-export const parse = (scrambleString) => {
+export const parse = (scrambleString: string): Move[] | null => {
   // TODO: use errors (throw or return promise) instead of returning null
   const tokens = tokenize(scrambleString);
   if(!tokens) return null;
@@ -87,7 +102,9 @@ export const parse = (scrambleString) => {
         moves.push(createMove({ layerCount: token.value }));
         break;
       case States.LAYER_COUNT_AND_FACE:
-        moves[moves.length - 1].face = token.face;
+        if(token.face) { // this check is needed for flow
+          moves[moves.length - 1].face = token.face;
+        }
         break;
       case States.START:
       case States.FACE_AND_NON_WIDE_MODIFIER:

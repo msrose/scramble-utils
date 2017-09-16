@@ -1,7 +1,5 @@
 // @flow
 
-/* globals $Keys */
-
 export const Axes = {
   X: 'X',
   Y: 'Y',
@@ -38,7 +36,9 @@ export const Faces: { [Face]: Face } = FaceList.reduce(
  */
 export type Face = $Keys<typeof FaceAxisInfo>;
 
-export const Modifiers = {
+export type Modifier = "'" | '2' | 'w';
+
+export const Modifiers: { [string]: Modifier } = {
   INVERTED: "'",
   DOUBLE: '2',
   WIDE: 'w'
@@ -54,7 +54,12 @@ export type Move = {
   layerCount: number
 };
 
-type MoveConfig = Move;
+type MoveConfig = {
+  face?: Face,
+  inverted?: boolean,
+  double?: boolean,
+  layerCount?: number
+};
 
 export const createMove = (move: MoveConfig): Move => {
   const { face = Faces.R, inverted = false, double = false, layerCount = 1 } = move;
@@ -71,3 +76,13 @@ export const Tokens = {
   MODIFIER: 'MODIFIER',
   LAYER_COUNT: 'LAYER_COUNT'
 };
+
+export type Token = {
+  type: TokenType,
+  raw: string,
+  face?: Face,
+  modifier?: Modifier,
+  value?: number
+};
+
+export type TokenType = $Keys<typeof Tokens>;

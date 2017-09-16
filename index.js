@@ -2,6 +2,8 @@
  * @module scramble-generator
  * @author Michael Rose
  * @license https://github.com/msrose/scramble-generator/blob/master/LICENSE
+ *
+ * @flow
  */
 
 export { generate } from './src/generator';

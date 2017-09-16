@@ -1,4 +1,5 @@
 /* eslint-env node */
+// @noflow
 
 const path = require('path');
 

@@ -1,3 +1,5 @@
+// @noflow
+
 import { Faces, generate, format, formatted, parse } from '../index';
 
 describe('Scramble generator', () => {
@@ -12,7 +14,7 @@ describe('Scramble generator', () => {
   it('generates a scramble for 3x3x3 by default', () => {
     const scramble = generate();
     expect(scramble.length).toBe(20);
-    scramble.forEach((move) => {
+    scramble.forEach((move) => { // eslint-disable-line
       expect(typeof move.inverted).toBe('boolean');
       expect(typeof move.double).toBe('boolean');
       expect(typeof move.layerCount).toBe('number');

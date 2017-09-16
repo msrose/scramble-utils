@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "docs": "documentation readme index.js --section=API",
     "build": "yarn run docs && webpack",
-    "prepublish": "yarn run build"
+    "prepack": "yarn run build"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "documentation": "^5.2.2",
     "eslint": "^4.5.0",
     "eslint-config-msrose": "^1.0.0",
+    "eslint-plugin-flowtype": "^2.35.1",
     "flow-bin": "^0.53.1",
     "jest": "^20.0.4",
     "webpack": "^3.5.5"
