@@ -2,30 +2,7 @@
 
     npm install scramble-generator
 
-## Upgrading from < v0.2.0
-
-**v0.2.0 has breaking changes**. To upgrade from an earlier version:
-
-```javascript
-// Before:
-import { formatted, generate, format, parse } from 'scramble-generator';
-
-formatted(); // R U' D ...
-const scramble = generate(); // [{ face: 'R', longFace: 'RIGHT', inverted: true, double: false }, ...]
-format(scramble) // R' ...
-parse("R' U L") // [{ face: 'R', longFace: 'RIGHT', inverted: true, double: false }, ...]
-
-// After
-import generateScramble, { formatScramble } from 'scramble-generator';
-import parseScramble from 'scramble-parser';
-
-generateScramble(); // R U' D ...
-const scramble = generateScramble({ formatted: false }); // [{ face: 'R', inverted: true, double: false }, ...] (NB: `longFace` has been removed)
-formatScramble(scramble); // R' ...
-parseScramble("R' U L"); // [{ face: 'R', inverted: true, double: false }, ...] (NB: `longFace` has been removed)
-```
-
-These breaking changes are necessary to facilitate moving towards v1.0.0, after which the package will adhere strictly to semver. There might be some more breaking changes
+**0.2.0 has breaking changes**. If you're using &lt; v0.2.0, see the [upgrading section](#upgrading).
 
 ## API
 
@@ -115,3 +92,30 @@ format([{
 ```
 
 Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** String representation of the given scramble.
+
+## Upgrading
+
+### From v0.1.x
+
+**v0.2.0 has breaking changes**. To upgrade from an earlier version:
+
+```javascript
+// Before:
+import { formatted, generate, format, parse } from 'scramble-generator';
+
+formatted(); // R U' D ...
+const scramble = generate(); // [{ face: 'R', longFace: 'RIGHT', inverted: true, double: false }, ...]
+format(scramble) // R' ...
+parse("R' U L") // [{ face: 'R', longFace: 'RIGHT', inverted: true, double: false }, ...]
+
+// After
+import generateScramble, { formatScramble } from 'scramble-generator';
+import parseScramble from 'scramble-parser';
+
+generateScramble(); // R U' D ...
+const scramble = generateScramble({ formatted: false }); // [{ face: 'R', inverted: true, double: false }, ...] (NB: `longFace` has been removed)
+formatScramble(scramble); // R' ...
+parseScramble("R' U L"); // [{ face: 'R', inverted: true, double: false }, ...] (NB: `longFace` has been removed)
+```
+
+These breaking changes are necessary to facilitate moving towards v1.0.0, after which the package will adhere strictly to semver. There might be some more breaking changes
