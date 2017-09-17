@@ -1,5 +1,3 @@
-// @noflow
-
 import { Faces } from '../index';
 
 describe('Scramble generator', () => {

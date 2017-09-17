@@ -1,5 +1,3 @@
-// @noflow
-
 import parse from '../index';
 
 describe('scramble-parser', () => {

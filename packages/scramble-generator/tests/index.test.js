@@ -1,5 +1,3 @@
-// @noflow
-
 import { Faces } from '../../../common';
 import generate, { formatScramble as format } from '../index';
 

@@ -16,7 +16,6 @@ module.exports = {
     'flowtype/no-primitive-constructor-types': 'error',
     'flowtype/require-parameter-type': ['error', { excludeArrowFunctions: 'expressionsOnly' }],
     'flowtype/require-return-type': ['error', 'always', { excludeArrowFunctions: 'expressionsOnly' }],
-    'flowtype/require-valid-file-annotation': ['error', 'always'],
     'flowtype/semi': 'error',
     'flowtype/space-after-type-colon': 'error',
     'flowtype/space-before-generic-bracket': 'error',
@@ -24,5 +23,10 @@ module.exports = {
     'flowtype/union-intersection-spacing': 'error',
     'flowtype/use-flow-type': 'error',
     'flowtype/no-types-missing-file-annotation': 'error'
+  },
+  settings: {
+    flowtype: {
+      onlyFilesWithFlowAnnotation: true
+    }
   }
 };
