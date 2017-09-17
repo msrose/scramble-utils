@@ -1,6 +1,6 @@
 {
   "name": "scramble-generator",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Generate scrambles for Rubik's cubes",
   "main": "build.js",
   "files": [
