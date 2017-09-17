@@ -1,6 +1,6 @@
 # Rubik's Cube Scramble Utilities
 
-[![Build Status](https://travis-ci.org/msrose/scramble-utils.svg?branch=master)](https://travis-ci.org/msrose/scramble-utils)
+[![Build Status](https://travis-ci.org/msrose/scramble-utils.svg?branch=master)](https://travis-ci.org/msrose/scramble-utils) [![devDependencies Status](https://david-dm.org/msrose/scramble-utils/dev-status.svg)](https://david-dm.org/msrose/scramble-utils?type=dev) [![Greenkeeper badge](https://badges.greenkeeper.io/msrose/scramble-utils.svg)](https://greenkeeper.io/)
 
 A collection of npm packages for dealing with Rubik's cube scrambles. See the individual package README for documentation.
 
