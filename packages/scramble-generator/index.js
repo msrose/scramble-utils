@@ -14,7 +14,7 @@ export type GenerateConfig = {
  * Generates a random scramble for the given cube size.
  * @example
  * import generateScramble from 'scramble-generator';
- * generateScramble()
+ * generateScramble();
  * // R' U F D' L ...
  *
  * generateScramble({ cubeSize: 3, formatted: false });
