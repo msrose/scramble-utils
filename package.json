@@ -4,6 +4,7 @@
   "scripts": {
     "postinstall": "yarn run webpack && lerna bootstrap",
     "test": "jest",
+    "coveralls": "cat coverage/lcov.info | coveralls",
     "lint": "eslint .",
     "docs": "lerna exec -- documentation readme index.js --section=API",
     "webpack": "webpack",
@@ -16,6 +17,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
+    "coveralls": "^2.13.1",
     "documentation": "5.2.2",
     "eslint": "^4.5.0",
     "eslint-config-msrose": "^1.0.0",

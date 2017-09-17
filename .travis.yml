@@ -7,6 +7,7 @@ before_script: greenkeeper-lockfile-update
 script:
   - yarn run lint
   - yarn run flow
-  - yarn test
+  - yarn run test -- --coverage
   - yarn run build
 after_script: greenkeeper-lockfile-upload
+after_success: yarn run coveralls
