@@ -1,7 +1,0 @@
-__tests__
-.eslintrc.js
-.gitignore
-.travis.yml
-.babelrc
-.eslintignore
-webpack.config.js
