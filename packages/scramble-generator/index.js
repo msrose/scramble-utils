@@ -1,6 +1,7 @@
 // @flow
 
-import { randomInRange, coinFlip, FaceList, FaceAxisInfo, createMove } from '../../common';
+import { FaceList, FaceAxisInfo, createMove } from '../../common';
+import { randomInRange, coinFlip } from './helpers';
 import type { Move } from '../../common';
 import formatScramble from './formatter';
 
