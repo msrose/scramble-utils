@@ -8,7 +8,7 @@
     "docs": "lerna exec -- documentation readme index.js --section=API",
     "webpack": "webpack",
     "build": "yarn run docs && yarn run webpack",
-    "release": "yarn run flow && yarn run test && yarn run lint && yarn run build && lerna publish"
+    "release": "yarn run flow && yarn run test && yarn run lint && yarn run build && lerna publish --registry=https://registry.npmjs.org/"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
