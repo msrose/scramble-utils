@@ -1,7 +1,7 @@
 // @flow
 
-import { Modifiers, Tokens, FaceList } from './common';
-import type { Token } from './common';
+import { Modifiers, Tokens, FaceList } from '../../common';
+import type { Token } from '../../common';
 
 export const tokenize = (scrambleString: string): Token[] | null => {
   // TODO: use errors (throw or return promise) instead of returning null

@@ -6,7 +6,7 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: ['flowtype'],
-  extends: 'msrose',
+  extends: ['msrose', 'msrose/jest'],
   rules: {
     'flowtype/boolean-style': 'error',
     'flowtype/define-flow-type': 'error',

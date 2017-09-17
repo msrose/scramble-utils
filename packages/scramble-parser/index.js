@@ -1,8 +1,8 @@
 // @flow
 
-import { Tokens, Modifiers, createMove } from './common';
+import { Tokens, Modifiers, createMove } from '../../common';
 import { tokenize } from './tokenizer';
-import type { Token, Move, TokenType } from './common';
+import type { Token, Move, TokenType } from '../../common';
 
 const States = {
   START: 'START',
@@ -84,7 +84,7 @@ const transition = (state: State, token: Token): ?State => {
  *
  * parse("R J Q D2 F U'"); // null
  */
-export const parseScramble = (scrambleString: string): Move[] | null => {
+const parseScramble = (scrambleString: string): Move[] | null => {
   // TODO: use errors (throw or return promise) instead of returning null
   const tokens = tokenize(scrambleString);
   if(!tokens) return null;
@@ -137,3 +137,5 @@ export const parseScramble = (scrambleString: string): Move[] | null => {
   }
   return moves;
 };
+
+export default parseScramble;

@@ -2,7 +2,25 @@
   "name": "scramble-parser",
   "version": "0.0.1",
   "description": "Parse Rubik's cube scrambles",
-  "main": "index.js",
+  "main": "build.js",
+  "files": [
+    "build.js"
+  ],
+  "keywords": [
+    "Rubik's",
+    "Rubik's cube",
+    "scramble",
+    "parser",
+    "puzzle"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msrose/scramble-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/msrose/scramble-generator/issues"
+  },
+  "homepage": "https://github.com/msrose/scramble-generator#readme",
   "author": "Michael Rose <michael_rose@outlook.com>",
   "license": "MIT"
 }

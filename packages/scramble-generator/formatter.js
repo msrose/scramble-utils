@@ -1,7 +1,7 @@
 // @flow
 
-import { Faces, Modifiers } from './common';
-import type { Move } from './common';
+import { Faces, Modifiers } from '../../common';
+import type { Move } from '../../common';
 
 /**
  * Formats a given scramble as a string.
@@ -20,7 +20,7 @@ import type { Move } from './common';
  * }])
  * // "R' U2 L"
  */
-export const formatScramble = (scramble: Move[]): string => {
+const formatScramble = (scramble: Move[]): string => {
   if(!Array.isArray(scramble)) return '';
   return scramble
     .filter(move => Faces[move.face])
@@ -37,3 +37,5 @@ export const formatScramble = (scramble: Move[]): string => {
       return `${layerCount > 2 ? layerCount : ''}${face}${modifier}`;
     }).join(' ');
 };
+
+export default formatScramble;

@@ -1,9 +1,8 @@
 // @flow
 
-import { randomInRange, coinFlip } from './helpers';
-import { FaceList, FaceAxisInfo, createMove } from './common';
-import type { Move } from './common';
-import { formatScramble } from './formatter';
+import { randomInRange, coinFlip, FaceList, FaceAxisInfo, createMove } from '../../common';
+import type { Move } from '../../common';
+import formatScramble from './formatter';
 
 export type GenerateConfig = {
   cubeSize?: number,
@@ -20,7 +19,7 @@ export type GenerateConfig = {
  * // { face: 'R', inverted: true, double: false },
  * // { face: 'D', inverted: false, double: true }, ... ]
  */
-export const generateScramble = ({
+const generateScramble = ({
   cubeSize = 3,
   length = (cubeSize - 2) * 20 || 8,
   formatted = true
@@ -42,3 +41,7 @@ export const generateScramble = ({
   }
   return formatted ? formatScramble(scramble) : scramble;
 };
+
+export { formatScramble };
+
+export default generateScramble;

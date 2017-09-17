@@ -1,4 +1,5 @@
 node_modules
 npm-debug.log
 yarn-error.log
-sg.js
+build.js
+lerna-debug.log
