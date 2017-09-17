@@ -1,4 +1,4 @@
-# scramble-generator
+# scramble-generator [![npm](https://img.shields.io/npm/v/scramble-generator.svg)](https://www.npmjs.com/package/scramble-generator)
 
     npm install scramble-generator
 
@@ -23,7 +23,7 @@ Generates a random scramble for the given cube size.
 
 ```javascript
 import generateScramble from 'scramble-generator';
-generateScramble()
+generateScramble();
 // R' U F D' L ...
 
 generateScramble({ cubeSize: 3, formatted: false });
@@ -32,7 +32,7 @@ generateScramble({ cubeSize: 3, formatted: false });
 // { face: 'D', inverted: false, double: true }, ... ]
 ```
 
-Returns **([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>)**
+Returns **([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>)** 
 
 ### Faces
 
@@ -62,10 +62,10 @@ Type: {face: [Face](#face), inverted: [boolean](https://developer.mozilla.org/en
 
 **Properties**
 
--   `face` **[Face](#face)**
--   `inverted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
--   `double` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
--   `layerCount` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
+-   `face` **[Face](#face)** 
+-   `inverted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   `double` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   `layerCount` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 ### formatScramble
 

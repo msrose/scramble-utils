@@ -1,4 +1,4 @@
-# scramble-parser
+# scramble-parser [![npm](https://img.shields.io/npm/v/scramble-parser.svg)](https://www.npmjs.com/package/scramble-parser)
 
     npm install scramble-parser
 
@@ -12,7 +12,7 @@ Takes a given string and parses it into a scramble of [Move](#move) objects.
 
 **Parameters**
 
--   `scrambleString` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The string to be parse as a scramble.
+-   `scrambleString` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The string to be parsed as a scramble.
 
 **Examples**
 

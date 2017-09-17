@@ -72,7 +72,7 @@ const transition = (state: State, token: Token): ?State => {
 
 /**
  * Takes a given string and parses it into a scramble of {@link Move} objects.
- * @param scrambleString - The string to be parse as a scramble.
+ * @param scrambleString - The string to be parsed as a scramble.
  * @returns An array of Move objects representing the given scramble, or null if the scramble isn't valid.
  * @example
  * import parseScramble from 'scramble-parser';
