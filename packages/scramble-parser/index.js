@@ -72,10 +72,10 @@ const transition = (state: State, token: Token): ?State => {
 
 /**
  * Takes a given string and parses it into a scramble of {@link Move} objects.
- * @param {string} scrambleString - The string to be parse as a scramble.
- * @returns {Move[]|null} - An array of Move objects representing the given scramble, or null if the scramble isn't valid.
+ * @param scrambleString - The string to be parse as a scramble.
+ * @returns An array of Move objects representing the given scramble, or null if the scramble isn't valid.
  * @example
- * import { parse } from 'scramble-generator';
+ * import parseScramble from 'scramble-parser';
  * parse("R' U F D2");
  * // [ { face: 'R', inverted: true, double: false },
  * // { face: 'U', inverted: false, double: false },

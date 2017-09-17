@@ -20,8 +20,11 @@ Generates a random scramble for the given cube size.
 **Examples**
 
 ```javascript
-import { generate } from 'scramble-generator';
-generate({ cubeSize: 3 });
+import generateScramble from 'scramble-generator';
+generateScramble()
+// R' U F D' L ...
+
+generateScramble({ cubeSize: 3, formatted: false });
 // [ { face: 'U', inverted: false, double: true },
 // { face: 'R', inverted: true, double: false },
 // { face: 'D', inverted: false, double: true }, ... ]
@@ -68,12 +71,12 @@ Formats a given scramble as a string.
 
 **Parameters**
 
--   `scramble` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>?** List of Move objects representing a scramble to be formatted.
+-   `scramble` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>** List of Move objects representing a scramble to be formatted.
 
 **Examples**
 
 ```javascript
-import { format, Faces } from 'scramble-generator';
+import { formatScramble, Faces } from 'scramble-generator';
 format([{
   face: Faces.R,
   inverted: true

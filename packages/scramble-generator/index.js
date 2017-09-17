@@ -13,8 +13,11 @@ export type GenerateConfig = {
 /**
  * Generates a random scramble for the given cube size.
  * @example
- * import { generate } from 'scramble-generator';
- * generate({ cubeSize: 3 });
+ * import generateScramble from 'scramble-generator';
+ * generateScramble()
+ * // R' U F D' L ...
+ *
+ * generateScramble({ cubeSize: 3, formatted: false });
  * // [ { face: 'U', inverted: false, double: true },
  * // { face: 'R', inverted: true, double: false },
  * // { face: 'D', inverted: false, double: true }, ... ]
@@ -43,5 +46,6 @@ const generateScramble = ({
 };
 
 export { formatScramble };
+export { Faces } from '../../common';
 
 export default generateScramble;

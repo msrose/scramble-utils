@@ -2,10 +2,12 @@
   "name": "scramble-utils",
   "private": true,
   "scripts": {
+    "postinstall": "yarn run webpack && lerna bootstrap",
     "test": "jest",
     "lint": "eslint .",
     "docs": "lerna exec -- documentation readme index.js --section=API",
-    "build": "yarn run docs && webpack",
+    "webpack": "webpack",
+    "build": "yarn run docs && yarn run webpack",
     "prepack": "yarn run build"
   },
   "devDependencies": {

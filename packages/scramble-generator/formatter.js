@@ -5,10 +5,10 @@ import type { Move } from '../../common';
 
 /**
  * Formats a given scramble as a string.
- * @param {Move[]} [scramble] - List of Move objects representing a scramble to be formatted.
- * @returns {string} - String representation of the given scramble.
+ * @param [scramble] List of Move objects representing a scramble to be formatted.
+ * @returns String representation of the given scramble.
  * @example
- * import { format, Faces } from 'scramble-generator';
+ * import { formatScramble, Faces } from 'scramble-generator';
  * format([{
  *   face: Faces.R,
  *   inverted: true

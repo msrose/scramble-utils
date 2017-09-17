@@ -17,7 +17,7 @@ Takes a given string and parses it into a scramble of [Move](#move) objects.
 **Examples**
 
 ```javascript
-import { parse } from 'scramble-generator';
+import parseScramble from 'scramble-parser';
 parse("R' U F D2");
 // [ { face: 'R', inverted: true, double: false },
 // { face: 'U', inverted: false, double: false },
