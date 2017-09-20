@@ -45,7 +45,8 @@ Formats a given scramble as a string.
 **Examples**
 
 ```javascript
-import { formatScramble, Faces } from 'scramble-generator';
+import { formatScramble } from 'scramble-generator';
+import { Faces } from 'scramble-utils-common';
 format([{
   face: Faces.R,
   inverted: true

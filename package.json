@@ -6,7 +6,7 @@
     "test": "jest",
     "coveralls": "cat coverage/lcov.info | coveralls",
     "lint": "eslint .",
-    "docs": "lerna exec -- documentation readme index.js --section=API",
+    "docs": "lerna exec -- documentation readme src/index.js --section=API",
     "webpack": "webpack",
     "babel": "lerna exec -- babel src --out-dir lib",
     "clean": "lerna exec -- rm -r lib dist",

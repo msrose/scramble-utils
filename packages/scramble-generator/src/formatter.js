@@ -8,7 +8,8 @@ import type { Move } from '../../../types';
  * @param [scramble] List of Move objects representing a scramble to be formatted.
  * @returns String representation of the given scramble.
  * @example
- * import { formatScramble, Faces } from 'scramble-generator';
+ * import { formatScramble } from 'scramble-generator';
+ * import { Faces } from 'scramble-utils-common';
  * format([{
  *   face: Faces.R,
  *   inverted: true
