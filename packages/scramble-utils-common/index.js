@@ -1,12 +1,12 @@
 // @flow
 
+import type { Face, Modifier, Move } from '../../types';
+
 export const Axes = {
   X: 'X',
   Y: 'Y',
   Z: 'Z'
 };
-
-export type Axis = $Keys<typeof Axes>;
 
 export const FaceAxisInfo = {
   R: Axes.X,
@@ -31,27 +31,10 @@ export const Faces: { [Face]: Face } = FaceList.reduce(
   {}
 );
 
-/**
- * The face of the cube to turn is represented by a single-character string
- */
-export type Face = $Keys<typeof FaceAxisInfo>;
-
-export type Modifier = "'" | '2' | 'w';
-
 export const Modifiers: { [string]: Modifier } = {
   INVERTED: "'",
   DOUBLE: '2',
   WIDE: 'w'
-};
-
-/**
- * A turn of the cube is represented throughout as a Move object, which has all the properties necessary to describe how a given turn must be executed.
- */
-export type Move = {
-  face: Face,
-  inverted: boolean,
-  double: boolean,
-  layerCount: number
 };
 
 type MoveConfig = {

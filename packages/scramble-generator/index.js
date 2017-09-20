@@ -1,8 +1,8 @@
 // @flow
 
-import { FaceList, FaceAxisInfo, createMove } from '../../common';
+import { FaceList, FaceAxisInfo, createMove } from 'scramble-utils-common';
+import type { Move } from '../../types';
 import { randomInRange, coinFlip } from './helpers';
-import type { Move } from '../../common';
 import formatScramble from './formatter';
 
 export type GenerateConfig = {
@@ -47,6 +47,6 @@ const generateScramble = ({
 };
 
 export { formatScramble };
-export { Faces } from '../../common';
+export { Faces } from 'scramble-utils-common';
 
 export default generateScramble;

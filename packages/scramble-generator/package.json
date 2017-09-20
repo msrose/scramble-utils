@@ -22,5 +22,8 @@
   },
   "homepage": "https://github.com/msrose/scramble-utils/packages/scramble-generator#readme",
   "author": "Michael Rose <michael_rose@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "scramble-utils-common": "^0.0.1"
+  }
 }

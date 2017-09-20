@@ -1,7 +1,7 @@
 {
-  "name": "scramble-parser",
-  "version": "0.1.0",
-  "description": "Parse Rubik's cube scrambles",
+  "name": "scramble-utils-common",
+  "version": "0.0.1",
+  "description": "Common functions and constants for Rubik's cube scramble utilities",
   "main": "build.js",
   "files": [
     "build.js"
@@ -10,7 +10,6 @@
     "Rubik's",
     "Rubik's cube",
     "scramble",
-    "parser",
     "puzzle"
   ],
   "repository": {
@@ -20,10 +19,7 @@
   "bugs": {
     "url": "https://github.com/msrose/scramble-utils/issues"
   },
-  "homepage": "https://github.com/msrose/scramble-utils/packages/scramble-parser#readme",
+  "homepage": "https://github.com/msrose/scramble-utils/packages/scramble-common-utils#readme",
   "author": "Michael Rose <michael_rose@outlook.com>",
-  "license": "MIT",
-  "dependencies": {
-    "scramble-utils-common": "^0.0.1"
-  }
+  "license": "MIT"
 }

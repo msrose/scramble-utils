@@ -1,4 +1,4 @@
-import { Faces } from '../../../common';
+import { Faces } from 'scramble-utils-common';
 import generate, { formatScramble as format } from '../index';
 
 describe('scramble-generator', () => {

@@ -8,3 +8,4 @@ A collection of npm packages for dealing with Rubik's cube scrambles. See the in
 | --- | --- | --- |
 | [scramble-generator](./packages/scramble-generator) | [![npm](https://img.shields.io/npm/v/scramble-generator.svg)](https://www.npmjs.com/package/scramble-generator) | Generate and format scrambles for any cubic puzzle |
 | [scramble-parser](./packages/scramble-parser) | [![npm](https://img.shields.io/npm/v/scramble-parser.svg)](https://www.npmjs.com/package/scramble-parser) | Parse a given scramble string into a list of cube moves |
+| [scramble-utils-common](./packages/scramble-utils-common) | [![npm](https://img.shields.io/npm/v/scramble-utils-common.svg)](https://www.npmjs.com/package/scramble-utils-common) | Common functions and constants for scramble-utils packages |
