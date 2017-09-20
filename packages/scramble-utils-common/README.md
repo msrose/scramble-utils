@@ -44,6 +44,6 @@ Creates a move for a scramble.
 
 **Parameters**
 
--   `move` **MoveConfig** 
+-   `move` **MoveConfig**  (optional, default `{}`)
 
 Returns **Move** An object representing a move for a scramble
