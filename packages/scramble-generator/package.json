@@ -1,6 +1,6 @@
 {
   "name": "scramble-generator",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Generate scrambles for Rubik's cubes",
   "main": "lib/index.js",
   "files": [
@@ -25,6 +25,6 @@
   "author": "Michael Rose <michael_rose@outlook.com>",
   "license": "MIT",
   "dependencies": {
-    "scramble-utils-common": "^0.1.0"
+    "scramble-utils-common": "^0.1.1"
   }
 }
