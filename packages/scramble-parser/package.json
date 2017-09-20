@@ -1,6 +1,6 @@
 {
   "name": "scramble-parser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Parse Rubik's cube scrambles",
   "main": "lib/index.js",
   "files": [
@@ -25,6 +25,6 @@
   "author": "Michael Rose <michael_rose@outlook.com>",
   "license": "MIT",
   "dependencies": {
-    "scramble-utils-common": "^0.0.1"
+    "scramble-utils-common": "^0.1.0"
   }
 }
