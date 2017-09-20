@@ -1,7 +1,7 @@
 // @flow
 
 import { Faces, Modifiers } from 'scramble-utils-common';
-import type { Move } from '../../types';
+import type { Move } from '../../../types';
 
 /**
  * Formats a given scramble as a string.

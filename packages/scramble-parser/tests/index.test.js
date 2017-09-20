@@ -1,4 +1,4 @@
-import parse from '../index';
+import parse from '../src';
 
 describe('scramble-parser', () => {
   it('parses a scramble string into array format', () => {

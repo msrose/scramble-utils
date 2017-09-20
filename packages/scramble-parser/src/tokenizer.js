@@ -1,7 +1,7 @@
 // @flow
 
 import { Modifiers, FaceList } from 'scramble-utils-common';
-import type { Face, Modifier } from '../../types';
+import type { Face, Modifier } from '../../../types';
 
 export const Tokens = {
   FACE: 'FACE',

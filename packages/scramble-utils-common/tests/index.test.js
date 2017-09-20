@@ -1,4 +1,4 @@
-import { Faces } from '../index';
+import { Faces } from '../src';
 
 describe('Scramble generator', () => {
   it('exports the cube moves', () => {

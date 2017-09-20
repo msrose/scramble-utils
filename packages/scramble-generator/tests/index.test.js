@@ -1,5 +1,5 @@
 import { Faces } from 'scramble-utils-common';
-import generate, { formatScramble as format } from '../index';
+import generate, { formatScramble as format } from '../src';
 
 describe('scramble-generator', () => {
   it('generates a scramble for 3x3x3 by default', () => {

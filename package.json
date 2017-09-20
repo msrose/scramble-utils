@@ -2,16 +2,19 @@
   "name": "scramble-utils",
   "private": true,
   "scripts": {
-    "postinstall": "lerna bootstrap && yarn run webpack",
+    "postinstall": "lerna bootstrap && yarn run babel",
     "test": "jest",
     "coveralls": "cat coverage/lcov.info | coveralls",
     "lint": "eslint .",
     "docs": "lerna exec -- documentation readme index.js --section=API",
     "webpack": "webpack",
-    "build": "yarn run docs && yarn run webpack",
+    "babel": "lerna exec -- babel src --out-dir lib",
+    "clean": "lerna exec -- rm -r lib dist",
+    "build": "yarn run babel && yarn run webpack && yarn run docs",
     "release": "yarn run flow && yarn run test && yarn run lint && yarn run build && lerna publish --registry=https://registry.npmjs.org/"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.0",
     "babel-jest": "^21.0.2",
     "babel-loader": "^7.1.2",
@@ -25,6 +28,7 @@
     "flow-bin": "0.54.1",
     "jest": "^21.1.0",
     "lerna": "^2.2.0",
+    "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.5.5"
   },
   "jest": {

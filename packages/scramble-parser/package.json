@@ -2,9 +2,10 @@
   "name": "scramble-parser",
   "version": "0.1.0",
   "description": "Parse Rubik's cube scrambles",
-  "main": "build.js",
+  "main": "lib/index.js",
   "files": [
-    "build.js"
+    "lib",
+    "dist"
   ],
   "keywords": [
     "Rubik's",
