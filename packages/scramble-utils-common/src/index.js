@@ -60,7 +60,7 @@ type MoveConfig = {
  * Creates a move for a scramble.
  * @returns An object representing a move for a scramble
  */
-export const createMove = (move: MoveConfig): Move => {
+export const createMove = (move: MoveConfig = {}): Move => {
   const { face = Faces.R, inverted = false, double = false, layerCount = 1 } = move;
   return {
     face,
