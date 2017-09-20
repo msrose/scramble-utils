@@ -2,7 +2,7 @@
   "name": "scramble-utils",
   "private": true,
   "scripts": {
-    "postinstall": "yarn run webpack && lerna bootstrap",
+    "postinstall": "lerna bootstrap && yarn run webpack",
     "test": "jest",
     "coveralls": "cat coverage/lcov.info | coveralls",
     "lint": "eslint .",

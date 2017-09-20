@@ -2,12 +2,18 @@
 
 import type { Face, Modifier, Move } from '../../types';
 
+/**
+ * Axes for a cubic puzzle
+ */
 export const Axes = {
   X: 'X',
   Y: 'Y',
   Z: 'Z'
 };
 
+/**
+ * Mapping from face to axis around which it turns
+ */
 export const FaceAxisInfo = {
   R: Axes.X,
   L: Axes.X,
@@ -17,6 +23,9 @@ export const FaceAxisInfo = {
   B: Axes.Z
 };
 
+/**
+ * List of faces
+ */
 export const FaceList = Object.keys(FaceAxisInfo);
 
 /**
@@ -31,6 +40,9 @@ export const Faces: { [Face]: Face } = FaceList.reduce(
   {}
 );
 
+/**
+ * Mapping of name constant to corresponding scramble modifier
+ */
 export const Modifiers: { [string]: Modifier } = {
   INVERTED: "'",
   DOUBLE: '2',
@@ -44,6 +56,10 @@ type MoveConfig = {
   layerCount?: number
 };
 
+/**
+ * Creates a move for a scramble.
+ * @returns An object representing a move for a scramble
+ */
 export const createMove = (move: MoveConfig): Move => {
   const { face = Faces.R, inverted = false, double = false, layerCount = 1 } = move;
   return {
