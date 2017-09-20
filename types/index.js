@@ -20,4 +20,3 @@ export type Move = {
   double: boolean,
   layerCount: number
 };
-

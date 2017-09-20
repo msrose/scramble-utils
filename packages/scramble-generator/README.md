@@ -32,40 +32,7 @@ generateScramble({ cubeSize: 3, formatted: false });
 // { face: 'D', inverted: false, double: true }, ... ]
 ```
 
-Returns **([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>)** 
-
-### Faces
-
-Map of Faces.
-
-Type: {}
-
-**Examples**
-
-```javascript
-import { Faces } from 'scramble-generator';
-Faces.R; // 'R'
-Faces.U; // 'U'
-```
-
-### Face
-
-The face of the cube to turn is represented by a single-character string
-
-Type: $Keys&lt;any>
-
-### Move
-
-A turn of the cube is represented throughout as a Move object, which has all the properties necessary to describe how a given turn must be executed.
-
-Type: {face: [Face](#face), inverted: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), double: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), layerCount: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)}
-
-**Properties**
-
--   `face` **[Face](#face)** 
--   `inverted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
--   `double` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
--   `layerCount` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+Returns **([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;Move>)** 
 
 ### formatScramble
 
@@ -73,7 +40,7 @@ Formats a given scramble as a string.
 
 **Parameters**
 
--   `scramble` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)>** List of Move objects representing a scramble to be formatted.
+-   `scramble` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;Move>** List of Move objects representing a scramble to be formatted.
 
 **Examples**
 

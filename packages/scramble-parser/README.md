@@ -8,7 +8,7 @@
 
 ### parseScramble
 
-Takes a given string and parses it into a scramble of [Move](#move) objects.
+Takes a given string and parses it into a scramble of [Move](Move) objects.
 
 **Parameters**
 
@@ -27,37 +27,4 @@ parse("R' U F D2");
 parse("R J Q D2 F U'"); // null
 ```
 
-Returns **([Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Move](#move)> | null)** An array of Move objects representing the given scramble, or null if the scramble isn't valid.
-
-### Faces
-
-Map of Faces.
-
-Type: {}
-
-**Examples**
-
-```javascript
-import { Faces } from 'scramble-generator';
-Faces.R; // 'R'
-Faces.U; // 'U'
-```
-
-### Face
-
-The face of the cube to turn is represented by a single-character string
-
-Type: $Keys&lt;any>
-
-### Move
-
-A turn of the cube is represented throughout as a Move object, which has all the properties necessary to describe how a given turn must be executed.
-
-Type: {face: [Face](#face), inverted: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), double: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), layerCount: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)}
-
-**Properties**
-
--   `face` **[Face](#face)** 
--   `inverted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
--   `double` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
--   `layerCount` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+Returns **([Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;Move> | null)** An array of Move objects representing the given scramble, or null if the scramble isn't valid.
