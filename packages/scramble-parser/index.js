@@ -1,8 +1,9 @@
 // @flow
 
-import { Tokens, Modifiers, createMove } from '../../common';
-import { tokenize } from './tokenizer';
-import type { Token, Move, TokenType } from '../../common';
+import { Modifiers, createMove } from '../../common';
+import type { Move } from '../../common';
+import tokenize, { Tokens } from './tokenizer';
+import type { TokenType, Token } from './tokenizer';
 
 const States = {
   START: 'START',

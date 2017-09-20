@@ -70,19 +70,3 @@ export const createMove = (move: MoveConfig): Move => {
     layerCount
   };
 };
-
-export const Tokens = {
-  FACE: 'FACE',
-  MODIFIER: 'MODIFIER',
-  LAYER_COUNT: 'LAYER_COUNT'
-};
-
-export type Token = {
-  type: TokenType,
-  raw: string,
-  face?: Face,
-  modifier?: Modifier,
-  value?: number
-};
-
-export type TokenType = $Keys<typeof Tokens>;

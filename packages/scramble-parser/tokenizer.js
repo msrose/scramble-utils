@@ -1,9 +1,25 @@
 // @flow
 
-import { Modifiers, Tokens, FaceList } from '../../common';
-import type { Token } from '../../common';
+import { Modifiers, FaceList } from '../../common';
+import type { Face, Modifier } from '../../common';
 
-export const tokenize = (scrambleString: string): Token[] | null => {
+export const Tokens = {
+  FACE: 'FACE',
+  MODIFIER: 'MODIFIER',
+  LAYER_COUNT: 'LAYER_COUNT'
+};
+
+export type TokenType = $Keys<typeof Tokens>;
+
+export type Token = {
+  type: TokenType,
+  raw: string,
+  face?: Face,
+  modifier?: Modifier,
+  value?: number
+};
+
+const tokenize = (scrambleString: string): Token[] | null => {
   // TODO: use errors (throw or return promise) instead of returning null
   if(typeof scrambleString !== 'string') return null;
   const tokens = [];
@@ -66,3 +82,5 @@ export const tokenize = (scrambleString: string): Token[] | null => {
   }
   return tokens;
 };
+
+export default tokenize;
