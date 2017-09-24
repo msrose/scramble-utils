@@ -1,7 +1,6 @@
 // @flow
 
 import { FaceList, FaceAxisInfo, createMove } from 'scramble-utils-common';
-import type { Move } from '../../../types';
 import { randomInRange, coinFlip } from './helpers';
 import formatScramble from './formatter';
 

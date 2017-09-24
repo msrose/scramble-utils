@@ -1,7 +1,6 @@
 // @flow
 
 import { Modifiers, createMove } from 'scramble-utils-common';
-import type { Move } from '../../../types';
 import tokenize, { Tokens } from './tokenizer';
 import type { TokenType, Token } from './tokenizer';
 

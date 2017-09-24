@@ -1,7 +1,5 @@
 // @flow
 
-import type { Face, Modifier, Move } from '../../../types';
-
 /**
  * Axes for a cubic puzzle
  */
