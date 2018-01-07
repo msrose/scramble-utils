@@ -26,7 +26,7 @@
     "eslint-config-msrose": "^1.0.0",
     "eslint-plugin-flowtype": "^2.35.1",
     "flow-bin": "0.63.1",
-    "jest": "^21.1.0",
+    "jest": "^22.0.4",
     "lerna": "^2.2.0",
     "uglifyjs-webpack-plugin": "^1.0.0",
     "webpack": "^3.5.5"
