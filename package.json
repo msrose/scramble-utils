@@ -21,7 +21,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
     "coveralls": "^3.0.0",
-    "documentation": "5.3.5",
+    "documentation": "6.2.0",
     "eslint": "^4.5.0",
     "eslint-config-msrose": "^1.0.0",
     "eslint-plugin-flowtype": "^2.35.1",
