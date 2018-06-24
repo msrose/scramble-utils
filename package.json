@@ -29,7 +29,7 @@
     "jest": "^22.0.4",
     "lerna": "^2.2.0",
     "uglifyjs-webpack-plugin": "^1.0.0",
-    "webpack": "^3.5.5"
+    "webpack": "^4.12.1"
   },
   "jest": {
     "testEnvironment": "node"
