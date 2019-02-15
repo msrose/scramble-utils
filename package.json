@@ -22,7 +22,7 @@
     "babel-preset-flow": "^6.23.0",
     "coveralls": "^3.0.0",
     "documentation": "5.3.5",
-    "eslint": "^4.5.0",
+    "eslint": "^5.14.0",
     "eslint-config-msrose": "^1.0.0",
     "eslint-plugin-flowtype": "^2.35.1",
     "flow-bin": "0.65.0",
