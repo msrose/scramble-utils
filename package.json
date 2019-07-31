@@ -28,7 +28,7 @@
     "flow-bin": "0.65.0",
     "jest": "^22.0.4",
     "lerna": "^2.2.0",
-    "uglifyjs-webpack-plugin": "^1.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^3.5.5"
   },
   "jest": {
